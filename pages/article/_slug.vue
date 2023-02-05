@@ -100,7 +100,7 @@ export default {
         title: this.article.title,
         text: this.article.description,
         files: filesArray,
-        url: `https://how-does-it-work.netlify.app/${this.$nuxt.$route.path}`
+        url: `https://how-does-it-work.netlify.app${this.$nuxt.$route.path}`
       })
     }
   }
