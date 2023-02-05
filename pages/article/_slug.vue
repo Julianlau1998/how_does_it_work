@@ -41,7 +41,7 @@
           <div v-html="article.article" />
         </v-col>
       </v-row>
-      <div id="lateral" v-if="navigator.share !== undefined">
+      <div id="lateral" v-if="shareAvailable">
         <v-fab-transition>
           <v-btn
             @click="share"
@@ -74,21 +74,16 @@ export default {
   },
   data () {
     return {
-      rating: 0
+      rating: 0,
+      shareAvailable: false
     }
   },
-/*  watch: {
-    async rating (val) {
-      const res = await axios.post(`${process.env}/ratings`, {
-        data: {
-          value: val
-        }
-      })
-      console.log(res)
-    }
-  },*/
+  mounted () {
+    this.shareAvailable = navigator.share !== undefined
+  },
   methods: {
     async share () {
+      if (navigator?.share === undefined) return
       const response = await fetch(this.article.image)
       const blob = await response.blob()
       const filesArray = [
