@@ -42,7 +42,7 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>
+      <v-toolbar-title @click="home" class="is-cursor-pointer">
         {{ title }}
       </v-toolbar-title>
     </v-app-bar>
@@ -96,6 +96,11 @@ export default {
       right: true,
       rightDrawer: false,
       title: 'How Does It Work?'
+    }
+  },
+  methods: {
+    home () {
+      this.$router.push({path: '/'});
     }
   }
 }
