@@ -9,7 +9,7 @@
       You found the right place!
     </p>
     <v-divider></v-divider>
-    <v-row v-if="topics && topics.length" align="center" class="mt-5">
+    <v-row v-if="topics && topics.length" align="center" class="mt-2">
       <v-col
         class="d-flex mb-negative-5"
         cols="5"
