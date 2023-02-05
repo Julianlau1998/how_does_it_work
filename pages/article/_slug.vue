@@ -5,7 +5,7 @@
           <h1>
             {{ article.title }}?
           </h1>
-          <p>
+          <p class="mt-1">
             <b>
               {{ article.description }}
             </b>
@@ -41,9 +41,10 @@
           <div v-html="article.article" />
         </v-col>
       </v-row>
-      <div id="lateral">
+      <div id="lateral" v-if="navigator.share !== undefined">
         <v-fab-transition>
           <v-btn
+            @click="share"
             color="blue lighten-2"
             fab
             large
@@ -86,8 +87,27 @@ export default {
       console.log(res)
     }
   },*/
-  created () {
-    console.log(this.$route.params)
+  methods: {
+    async share () {
+      const response = await fetch(this.article.image)
+      const blob = await response.blob()
+      const filesArray = [
+        new File(
+          [blob],
+          `${this.article.title.replaceAll(' ', '_')}.jpg`,
+          {
+            type: "image/jpeg",
+            lastModified: new Date().getTime()
+          }
+        )
+      ]
+      await navigator.share({
+        title: this.article.title,
+        text: this.article.description,
+        files: filesArray,
+        url: `https://how-does-it-work.netlify.app/${this.$nuxt.$route.path}`
+      })
+    }
   }
 }
 </script>
