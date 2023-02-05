@@ -4,7 +4,7 @@
       Welcome!
     </h1>
     <p>
-      You always wanted to understand how the world around you and the technology you use works?
+      You always wanted to understand how the world around you works?
       <br>
       You found the right place!
     </p>
