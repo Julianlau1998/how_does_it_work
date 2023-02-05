@@ -1,0 +1,14 @@
+@import './helpers.scss';
+@import './vuetify.scss';
+
+.is-navigation-top-part {
+  width: 100%;
+  height: 3rem;
+}
+
+#lateral .v-btn--example {
+  bottom: 3rem;
+  right: 3rem;
+  position: fixed;
+  margin: 0 0 16px 16px;
+}

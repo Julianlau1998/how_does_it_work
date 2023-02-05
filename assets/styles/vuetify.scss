@@ -1,0 +1,12 @@
+.v-card {
+  min-height: 28rem;
+}
+
+.v-card:hover {
+  border: 1px solid white;
+}
+
+.v-app-bar {
+  border-bottom-left-radius: 20px !important;
+  border-bottom-right-radius: 20px !important;;
+}

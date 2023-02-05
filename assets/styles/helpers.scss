@@ -1,0 +1,24 @@
+.is-text-block {
+  text-align: justify;
+}
+
+@for $i from 1 through 20 {
+  .is-rounded-#{$i} {
+    border-radius: #{$i*5}px
+  }
+}
+.is-rounded {
+  border-radius: 10px;
+}
+
+.mb-max {
+  margin-bottom: 15rem !important;
+}
+
+.mb-negative-5 {
+  margin-bottom: -2.5rem !important;
+}
+
+.is-cursor-pointer {
+  cursor: pointer;
+}
