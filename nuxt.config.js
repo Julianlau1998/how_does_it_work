@@ -91,6 +91,12 @@ export default {
   },
 
   generate: {
-    fallback: true
+    fallback: true,
+    routes: [
+      '/*',
+      '/categories/category/*',
+      '/categories',
+      '/etc',
+    ]
   }
 }
