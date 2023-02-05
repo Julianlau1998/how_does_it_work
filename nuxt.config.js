@@ -6,7 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - how_works',
+    titleTemplate: '%s',
     title: 'How Does It Work',
     meta: [
       { charset: 'utf-8' },
@@ -88,5 +88,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  generate: {
+    fallback: true
   }
 }
