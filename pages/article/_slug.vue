@@ -5,7 +5,7 @@
           <h1>
             {{ article.title }}?
           </h1>
-          <p class="mt-1">
+          <p class="mt-2">
             <b>
               {{ article.description }}
             </b>
