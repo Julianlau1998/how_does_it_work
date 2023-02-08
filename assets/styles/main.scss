@@ -1,6 +1,10 @@
 @import './helpers.scss';
 @import './vuetify.scss';
 
+html {
+  background: #121212;
+}
+
 .is-navigation-top-part {
   width: 100%;
   height: 3rem;

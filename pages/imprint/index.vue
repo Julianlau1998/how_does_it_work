@@ -28,7 +28,7 @@
       You can contact a supervisory authority at any time with a complaint, e.g. the competent authority of the state in which you reside or the authority responsible for us as the responsible party.
     </p>
     <p>
-      A list of supervisory authorities (for the non-public sector) with addresses can be found at: <a href="https://www.bfdi.bund.de/DE/Service/Anschriften/Laender/Laender-node.html" target="_blank" rel="noopener nofollow">https://www.bfdi.bund.de/DE/Service/Anschriften/Laender/Laender-node.html</a>.
+      A list of supervisory authorities (for the non-public sector) with addresses can be found at: <a class="is-break-all" href="https://www.bfdi.bund.de/DE/Service/Anschriften/Laender/Laender-node.html" target="_blank" rel="noopener nofollow">https://www.bfdi.bund.de/DE/Service/Anschriften/Laender/Laender-node.html</a>.
     </p>
     <h2 class="header is-size-4 mt-4">
       SSL encryption
