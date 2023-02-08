@@ -69,6 +69,7 @@
 
 <script>
 export default {
-  name: "index.vue"
+  name: "index.vue",
+  transition: 'route'
 }
 </script>

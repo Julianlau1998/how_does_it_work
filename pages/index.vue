@@ -50,7 +50,7 @@
       </v-col>
     </v-row>
     <div
-      v-for="(category, index) in categories"
+      v-for="(category, index) in shuffleArray(categories)"
     >
       <v-col
         v-if="index !== 0"
@@ -68,7 +68,7 @@
           no-gutters
         >
           <v-col
-            v-for="(article, id) in articles.filter(article => article.category === category.id)"
+            v-for="(article, id) in shuffleArray(articles.filter(a => a.category === category.id))"
             :key="id"
           >
             <card
@@ -82,22 +82,24 @@
             >
             </card>
           </v-col>
-          <v-btn
-            v-if="articles.filter(article => article.category === category.id).length === 6"
-            @click="openCategory(category.id)"
-          >
-            Show more
-          </v-btn>
         </v-row>
+        <v-btn
+          v-if="articles.filter(article => article.category === category.id).length === 6"
+          @click="openCategory(category.id)"
+          class="mt-negative-6"
+        >
+          Show more
+        </v-btn>
       </span>
     </div>
   </v-container>
 </template>
 
 <script>
-import Card from "~/components/Card";
+import Card from "~/components/Card"
 export default {
   name: 'IndexPage',
+  transition: 'route',
   components: { Card },
   data () {
     return {
@@ -154,11 +156,12 @@ export default {
       this.$router.push({path: `/categories/category/${id}`});
     },
     shuffleArray (array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1))
-        const temp = array[i]
+      let j, x, i
+      for (i = array.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1))
+        x = array[i]
         array[i] = array[j]
-        array[j] = temp
+        array[j] = x
       }
       return array
     }

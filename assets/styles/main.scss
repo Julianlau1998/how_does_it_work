@@ -18,3 +18,8 @@
     max-width: 1185px !important;
   }
 }
+
+
+// Transitions
+.route-enter-active, .route-leave-active { transition: opacity .2s; }
+.route-enter, .route-leave-active { opacity: 0; }

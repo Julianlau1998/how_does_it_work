@@ -65,6 +65,7 @@
 <script>
 export default {
   name: "_slug",
+  transition: 'route',
   async asyncData ({ route, $directus }) {
     const article = await $directus.items(`articles/${route.params.slug}`).readByQuery({
       fields: ["*", "topics.topics_id.*"],

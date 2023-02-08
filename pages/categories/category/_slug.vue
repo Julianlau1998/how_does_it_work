@@ -34,6 +34,7 @@
 <script>
 export default {
   name: "category",
+  transition: 'route',
   async asyncData ({ route, $directus }) {
     const category = await $directus.items(`categories/${route.params.slug}`).readByQuery({
       fields: ["*"],
