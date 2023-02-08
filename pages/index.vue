@@ -16,6 +16,7 @@
       >
         <v-select
           v-model="filter"
+          class="mb-4"
           :items="topics"
           label="Filter"
           item-text="title"
@@ -48,8 +49,8 @@
         </v-chip>
       </v-col>
     </v-row>
-    <v-row
-      v-for="(category, index) in categories"
+    <div
+      v-for="(category, index) in shuffleArray(categories)"
     >
       <v-col
         v-if="index !== 0"
@@ -67,11 +68,11 @@
           no-gutters
         >
           <v-col
-            v-for="(article, id) in articles.filter(article => article.category === category.id)"
+            v-for="(article, id) in shuffleArray(articles.filter(article => article.category === category.id))"
             :key="id"
           >
             <card
-              :title="article.title"
+              :title="`${article.title}?`"
               :description="article.description"
               :topics="article.topics"
               :img="article.image"
@@ -81,9 +82,15 @@
             >
             </card>
           </v-col>
+          <v-btn
+            v-if="articles.filter(article => article.category === category.id).length === 6"
+            @click="openCategory(category.id)"
+          >
+            Show more
+          </v-btn>
         </v-row>
       </span>
-    </v-row>
+    </div>
   </v-container>
 </template>
 
@@ -130,8 +137,7 @@ export default {
                 '_in': val
               }
             }
-          },
-          sort: "date_created"
+          }
         })
       }
       this.articles = articles.data
@@ -143,6 +149,18 @@ export default {
     },
     open (id) {
       this.$router.push({path: `/article/${id}`});
+    },
+    openCategory (id) {
+      this.$router.push({path: `/categories/category/${id}`});
+    },
+    shuffleArray (array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        const temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
+      }
+      return array
     }
   }
 }
