@@ -36,6 +36,18 @@ import Card from "~/components/Card";
 export default {
   name: 'IndexPage',
   components: { Card },
+  head () {
+    return {
+      title: 'Categories - How does it work',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Discover different categories of articles about how things work.'
+        }
+      ]
+    }
+  },
   data () {
     return {
       articles: [],

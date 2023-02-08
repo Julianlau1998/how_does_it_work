@@ -100,6 +100,18 @@ import Card from "~/components/Card"
 export default {
   name: 'IndexPage',
   transition: 'route',
+  head () {
+    return {
+      title: 'How does it work - Home',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Find out how the world around you and the technology you use works.'
+        }
+      ]
+    }
+  },
   components: { Card },
   data () {
     return {
