@@ -12,3 +12,9 @@
   position: fixed;
   margin: 0 0 16px 16px;
 }
+
+@media (min-width: 1904px) {
+  .container {
+    max-width: 1185px !important;
+  }
+}
