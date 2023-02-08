@@ -2,6 +2,8 @@
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
+      width="400"
+      style="position:fixed; top:0; left:0; overflow-y:scroll;"
       class="blue-grey darken-3"
       :mini-variant="miniVariant"
       :clipped="false"
