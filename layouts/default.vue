@@ -53,14 +53,14 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-footer
+<!--    <v-footer
       :absolute="true"
       app
     >
       <span>
         &copy; {{ new Date().getFullYear() }} How Does It Work
       </span>
-    </v-footer>
+    </v-footer>-->
   </v-app>
 </template>
 
