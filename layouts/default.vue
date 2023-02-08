@@ -2,7 +2,7 @@
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
-      class="blue-grey darken-3"
+      class="is-nav-color"
       :mini-variant="miniVariant"
       :clipped="false"
       temporary
@@ -37,7 +37,7 @@
     </v-navigation-drawer>
     <v-app-bar
       :clipped-left="clipped"
-      class="blue-grey darken-3"
+      class="is-nav-color"
       fixed
       app
     >
@@ -53,6 +53,7 @@
     </v-main>
     <v-footer
       :absolute="true"
+      class="is-nav-color"
       app
     >
       <span>

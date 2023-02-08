@@ -11,7 +11,7 @@
     <v-divider></v-divider>
     <v-row v-if="topics && topics.length" align="center" class="mt-2">
       <v-col
-        class="d-flex mb-negative-5"
+        class="d-flex mb-negative-5-5"
         cols="5"
       >
         <v-select
@@ -38,7 +38,7 @@
           </template>
         </v-select>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" class="mb-4">
         <v-chip
           v-for="item in filter"
           class="ma-2"
