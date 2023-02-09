@@ -25,32 +25,11 @@
             color="orange"
             large
           ></v-rating>-->
-          <a
-             class="share-button"
-             :href="twitterURL"
-             data-size="large"
-          >
-            <v-icon>
-              mdi-twitter
-            </v-icon>
-          </a>
-          <a
-            class="share-button ml-3"
-            :href="mailURL"
-            data-size="large"
-          >
-            <v-icon>
-              mdi-email-outline
-            </v-icon>
-          </a>
-          <a
-            target="_blank"
-            :href="facebookURL"
-            class="share-button ml-3 fb-xfbml-parse-ignore">
-            <v-icon>
-              mdi-facebook
-            </v-icon>
-          </a>
+        <SocialShare
+          :facebook-url="facebookURL"
+          :twitter-url="twitterURL",
+          :mail-url="mailURL"
+        />
         </v-col>
         <v-col>
           <v-img
@@ -89,8 +68,10 @@
 </template>
 
 <script>
+import SocialShare from "~/components/base/SocialShare";
 export default {
   name: "_slug",
+  components: {SocialShare},
   transition: 'route',
   head () {
     let article = this.article;
@@ -144,7 +125,7 @@ export default {
       return `https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhow-does-it-work.netlify.app%2Farticle%${this.article.id}F2&amp;src=sdkpreparse`
     },
     mailURL () {
-      return `mailto:?to=&body=https://how-does-it-work.netlify.app/article/${this.article.id}%0D%0A%0D%0A${this.article.article}&subject=Look what I've found: ${this.article.title}`
+      return `mailto:?to=&body=https://how-does-it-work.netlify.app/article/${this.article.id}%0D%0A%0D%0A${this.article.article.replace(/<[^>]*>/g, '')}&subject=Look what I've found: ${this.article.title}`
     }
   },
   methods: {
