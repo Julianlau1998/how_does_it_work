@@ -38,12 +38,12 @@ export default {
   components: { Card },
   head () {
     return {
-      title: 'Categories - How does it work',
+      title: 'Categories - How Does It Work',
       meta: [
         {
-          hid: 'description',
+          hid: 'description_category',
           name: 'description',
-          content: 'Discover different categories of articles about how things work.'
+          content: 'Discover different categories of articles about how the world works.'
         }
       ]
     }

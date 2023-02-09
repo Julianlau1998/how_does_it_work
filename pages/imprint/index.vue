@@ -69,6 +69,18 @@
 
 <script>
 export default {
+  head () {
+    return {
+      title: 'Imprint - How Does It Work',
+      meta: [
+        {
+          hid: 'description_Imprint',
+          name: 'description',
+          content: "Data Security information for 'How Does It Work' by Julian Lau"
+        }
+      ]
+    }
+  },
   name: "index.vue",
   transition: 'route'
 }

@@ -35,6 +35,19 @@
 export default {
   name: "category",
   transition: 'route',
+  head () {
+    let category = this.category;
+
+    return {
+      title: `${category.title} - How Does It Work`,
+      meta: [
+        {
+          hid: `description`,
+          name: 'description',
+          content: `Discover informational articles about the topic ${category.title}`
+        }]
+    }
+  },
   async asyncData ({ route, $directus }) {
     const category = await $directus.items(`categories/${route.params.slug}`).readByQuery({
       fields: ["*"],

@@ -66,6 +66,19 @@
 export default {
   name: "_slug",
   transition: 'route',
+  head () {
+    let article = this.article;
+
+    return {
+      title: `${article.title} - How Does It Work`,
+      meta: [
+        {
+          hid: `description_article`,
+          name: 'description',
+          content: `${article.description}`
+        }]
+    }
+  },
   async asyncData ({ route, $directus }) {
     const article = await $directus.items(`articles/${route.params.slug}`).readByQuery({
       fields: ["*", "topics.topics_id.*"],
