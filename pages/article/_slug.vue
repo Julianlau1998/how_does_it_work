@@ -33,7 +33,7 @@
         </v-col>
         <v-col>
           <v-img
-            class="is-rounded-2"
+            class="is-rounded-2 ml-md-8 ml-lg-8 ml-xl-8"
             width="380"
             align="center"
             justify="center"
