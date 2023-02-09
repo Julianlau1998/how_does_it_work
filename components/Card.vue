@@ -33,7 +33,12 @@
         active-class="deep-purple accent-4 white--text"
         column
       >
-        <v-chip v-for="(topic, id) in topics" :key="id">
+        <v-chip
+          v-for="(topic, id) in topics"
+          :key="id"
+          active-class="blue lighten-2 white--text"
+          @click="$emit('addFilter', topic)"
+        >
           <span>
             {{ topic.topics_id.title }}
           </span>

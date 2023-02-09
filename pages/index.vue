@@ -79,6 +79,7 @@
               :id="JSON.stringify(article.id)"
               cta="Read now"
               @open="open(article.id)"
+              @addFilter="addFilter"
             >
             </card>
           </v-col>
@@ -181,6 +182,10 @@ export default {
         array[j] = x
       }
       return array
+    },
+    addFilter (filter) {
+      const exits = this.filter.filter((exitstingFilter) => exitstingFilter === filter.topics_id.id).length
+      if (!exits) this.filter.push(filter.topics_id.id)
     }
   }
 }
