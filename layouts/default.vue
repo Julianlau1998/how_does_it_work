@@ -1,5 +1,7 @@
 <template>
   <v-app dark>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v16.0" nonce="f9f8cj6I"></script>
     <v-navigation-drawer
       v-model="drawer"
       class="is-nav-color"

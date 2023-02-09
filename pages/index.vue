@@ -108,6 +108,11 @@ export default {
           hid: 'description',
           name: 'description',
           content: 'Find out how the world around you and the technology you use works.'
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: 'how does it work, technology, tech, science, information, articles, learning, medicine'
         }
       ]
     }

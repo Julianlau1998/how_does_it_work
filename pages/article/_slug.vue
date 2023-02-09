@@ -25,6 +25,32 @@
             color="orange"
             large
           ></v-rating>-->
+          <a
+             class="share-button"
+             :href="twitterURL"
+             data-size="large"
+          >
+            <v-icon>
+              mdi-twitter
+            </v-icon>
+          </a>
+          <a
+            class="share-button ml-3"
+            :href="mailURL"
+            data-size="large"
+          >
+            <v-icon>
+              mdi-email-outline
+            </v-icon>
+          </a>
+          <a
+            target="_blank"
+            :href="facebookURL"
+            class="share-button ml-3 fb-xfbml-parse-ignore">
+            <v-icon>
+              mdi-facebook
+            </v-icon>
+          </a>
         </v-col>
         <v-col>
           <v-img
@@ -76,7 +102,22 @@ export default {
           hid: `description_article`,
           name: 'description',
           content: `${article.description}`
-        }]
+        },
+        {
+          property: "og:image",
+          content: this.articleImage
+        },
+        { hid: 'og:title_og_article', property: 'og:title', content: this.article.title },
+        { hid: 'og:url_og_article', property: 'og:url', content: `https://how-does-it-work.netlify.app${this.$nuxt.$route.path}` },
+        { hid: 'og:description_og_article', property: 'og:description', content: this.article.description },
+        { hid: 'og:image_og_article', property: 'og:image', content: this.article.image},
+
+        // twitter card
+        { hid: "twitter:title_og_article", name: "twitter:title", content: this.article.title },
+        { hid: "twitter:url_og_article", name: "twitter:url", content: `https://how-does-it-work.netlify.app${this.$nuxt.$route.path}` },
+        { hid: 'twitter:description_og_article', name: 'twitter:description', content: this.article.description },
+        { hid: "twitter:image_og_article", name: "twitter:image", content: this.article.image},
+      ]
     }
   },
   async asyncData ({ route, $directus }) {
@@ -94,6 +135,17 @@ export default {
   },
   mounted () {
     this.shareAvailable = navigator.share !== undefined
+  },
+  computed: {
+    twitterURL () {
+      return `https://twitter.com/intent/tweet?text=${this.article.title}&url=https://how-does-it-work.netlify.app${this.$nuxt.$route.path}&hashtags=#${this.article.topics[0].topics_id.title}#${this.article.topics[1].topics_id.title}#`
+    },
+    facebookURL () {
+      return `https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhow-does-it-work.netlify.app%2Farticle%${this.article.id}F2&amp;src=sdkpreparse`
+    },
+    mailURL () {
+      return `mailto:?to=&body=https://how-does-it-work.netlify.app/article/${this.article.id}%0D%0A%0D%0A${this.article.article}&subject=Look what I've found: ${this.article.title}`
+    }
   },
   methods: {
     async share () {
