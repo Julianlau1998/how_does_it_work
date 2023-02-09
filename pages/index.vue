@@ -187,8 +187,10 @@ export default {
       const exits = this.filter.filter((exitstingFilter) => exitstingFilter === filter.topics_id.id).length
       if (!exits) {
         this.filter.push(filter.topics_id.id)
-        window.scrollTo(0, 0)
+      } else {
+        this.filter = this.filter.filter((exitstingFilter) => exitstingFilter !== filter.topics_id.id)
       }
+      window.scrollTo(0, 0)
     }
   }
 }
