@@ -14,90 +14,28 @@
         class="d-flex mb-negative-5-5"
         cols="5"
       >
-        <v-select
-          v-model="filter"
-          class="mb-4"
-          :items="topics"
-          label="Filter"
-          item-text="title"
-          item-value="id"
-          dense
-          multiple
-          outlined
-        >
-          <template v-slot:selection="{ item, index }">
-            <span v-if="index === 0">
-              {{ item.title }}
-            </span>
-            <span
-              v-if="index === 1"
-              class="grey--text text-caption"
-            >
-              &nbsp;(+{{ filter.length - 1 }})
-          </span>
-          </template>
-        </v-select>
-      </v-col>
-      <v-col cols="12" class="mb-4">
-        <v-chip
-          v-for="item in filter"
-          class="ma-2"
-          close
-          @click:close="removeFilter(item)"
-        >
-          {{ topics.filter((topic) => topic.id === item)[0].title }}
-        </v-chip>
+        <FilterElement
+          :key="rand"
+          :filter-prop="filter"
+          :topics-prop="topics"
+          @filter="filterArticles"
+        />
       </v-col>
     </v-row>
-    <div
-      v-for="(category, index) in shuffleArray(categories)"
-    >
-      <v-col
-        v-if="index !== 0"
-        cols="12"
-      >
-        <v-divider />
-      </v-col>
-      <span v-if="articles.filter(article => article.category === category.id).length">
-        <h2 :class="index !== 0 ? 'mt-4' : ''">
-          {{ category.title }}:
-        </h2>
-        <v-row
-          v-if="articles && articles.length"
-          class="mb-6"
-          no-gutters
-        >
-          <v-col
-            v-for="(article, id) in shuffleArray(articles.filter(a => a.category === category.id))"
-            :key="id"
-          >
-            <card
-              :title="`${article.title}?`"
-              :description="article.description"
-              :topics="article.topics"
-              :img="article.image"
-              :id="JSON.stringify(article.id)"
-              cta="Read now"
-              @open="open(article.id)"
-              @addFilter="addFilter"
-            >
-            </card>
-          </v-col>
-        </v-row>
-        <v-btn
-          v-if="articles.filter(article => article.category === category.id).length === 6"
-          @click="openCategory(category.id)"
-          class="mt-negative-6"
-        >
-          Show more
-        </v-btn>
-      </span>
-    </div>
+    <Articles
+      :categories="categories"
+      :articles="articles"
+      @openCategory="openCategory"
+      @open="open"
+      @addFilter="addFilter"
+    />
   </v-container>
 </template>
 
 <script>
 import Card from "~/components/Card"
+import Articles from "~/components/articles/Articles";
+import FilterElement from "~/components/base/FilterElement";
 export default {
   name: 'IndexPage',
   transition: 'route',
@@ -118,25 +56,26 @@ export default {
       ]
     }
   },
-  components: { Card },
+  components: {FilterElement, Articles, Card },
   data () {
     return {
       articles: [],
       categories: [],
       topics: [],
-      filter: []
+      filter: [],
+      rand: 0
     }
   },
   async fetch () {
     try {
       const articles = await this.$axios.get('https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*')
-      this.articles = articles.data.data
+      this.articles = this.shuffleArray(articles.data.data)
     } catch (err) {
       console.log(err)
     }
     try {
       const categories = await this.$axios.get('https://fio40ecz.directus.app/items/categories')
-      this.categories = categories.data.data
+      this.categories = this.shuffleArray(categories.data.data)
     } catch (err) {
       console.log(err)
     }
@@ -147,10 +86,10 @@ export default {
       console.log(err)
     }
   },
-  watch: {
-    async filter (val) {
+  methods: {
+    async filterArticles (filter) {
       let articles
-      if (!val.length) {
+      if (!filter.length) {
         articles = await this.$directus.items("articles").readByQuery({
           fields: ["*", "topics.topics_id.*"],
           sort: "date_created"
@@ -161,18 +100,13 @@ export default {
           filter: {
             'topics': {
               'topics_id': {
-                '_in': val
+                '_in': filter
               }
             }
           }
         })
       }
       this.articles = articles.data
-    }
-  },
-  methods: {
-    removeFilter (id) {
-      this.filter = this.filter.filter((filter) => filter !== id)
     },
     open (id) {
       this.$router.push({path: `/article/${id}`});
@@ -197,6 +131,7 @@ export default {
       } else {
         this.filter = this.filter.filter((exitstingFilter) => exitstingFilter !== filter.topics_id.id)
       }
+      this.rand = Math.random()
       window.scrollTo(0, 0)
     }
   }
