@@ -12,7 +12,7 @@
     <v-row v-if="topics && topics.length" align="center" class="mt-2">
       <v-col
         class="d-flex mb-negative-5-5"
-        cols="5"
+        cols="12"
       >
         <FilterElement
           :key="rand"

@@ -1,29 +1,31 @@
 <template>
   <span>
-    <v-select
-      v-model="filter"
-      class="mb-4"
-      :items="topics"
-      label="Filter"
-      item-text="title"
-      item-value="id"
-      dense
-      multiple
-      outlined
-    >
-      <template v-slot:selection="{ item, index }">
-        <span v-if="index === 0">
-          {{ item.title }}
-        </span>
-        <span
-          v-if="index === 1"
-          class="grey--text text-caption"
-        >
-          &nbsp;(+{{ filter.length - 1 }})
-        </span>
-      </template>
-    </v-select>
-    <v-col class="mt-negative-5 mb-4" cols="12">
+    <v-col cols="8">
+      <v-select
+        v-model="filter"
+        class="mb-4"
+        :items="topics"
+        label="Filter"
+        item-text="title"
+        item-value="id"
+        dense
+        multiple
+        outlined
+      >
+        <template v-slot:selection="{ item, index }">
+          <span v-if="index === 0">
+            {{ item.title }}
+          </span>
+          <span
+            v-if="index === 1"
+            class="grey--text text-caption"
+          >
+            &nbsp;(+{{ filter.length - 1 }})
+          </span>
+        </template>
+      </v-select>
+    </v-col>
+    <v-col class="mt-negative-5-5 mb-6" cols="12">
         <v-chip
           v-for="item in filter"
           class="ma-2"
