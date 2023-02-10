@@ -50,7 +50,7 @@
       </v-col>
     </v-row>
     <div
-      v-for="(category, index) in shuffleArray(categories)"
+      v-for="(category, index) in categories"
     >
       <v-col
         v-if="index !== 0"
@@ -68,7 +68,7 @@
           no-gutters
         >
           <v-col
-            v-for="(article, id) in shuffleArray(articles.filter(a => a.category === category.id))"
+            v-for="(article, id) in articles.filter(a => a.category === category.id)"
             :key="id"
           >
             <card
