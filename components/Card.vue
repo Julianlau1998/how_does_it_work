@@ -35,8 +35,8 @@
         column
       >
         <v-chip
-          v-for="(topic, id) in topics"
-          :key="id"
+          v-for="(topic, index) in topics"
+          :key="`card-chip-${index}`"
           active-class="blue lighten-2 white--text"
           @click="$emit('addFilter', topic)"
         >

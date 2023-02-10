@@ -27,7 +27,8 @@
     </v-col>
     <v-col class="mt-negative-5-5 mb-6" cols="12">
         <v-chip
-          v-for="item in filter"
+          v-for="(item, index) in filter"
+          :key="`filter-chip-${index}`"
           class="ma-2"
           close
           @click:close="removeFilter(item)"
