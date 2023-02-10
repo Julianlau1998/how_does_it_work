@@ -51,46 +51,18 @@ export default {
   data () {
     return {
       articles: [],
-      filter: []
+      filter: [],
+      categories: []
     }
   },
-  async asyncData ({ $directus }) {
-    const articles = await $directus.items("articles").readByQuery({
-      fields: ["*", "topics.topics_id.*"],
-      sort: "date_created"
-    })
-    const categories = await $directus.items("categories").readByQuery({
-      fields: ["*"],
-      sort: "date_created"
-    })
-    const topics = await $directus.items("topics").readByQuery({
-      fields: ["*"],
-      sort: "date_created"
-    })
-    return { articles: articles.data, categories: categories.data, topics: topics.data }
-  },
-  watch: {
-    async filter (val) {
-      let articles
-      if (!val.length) {
-        articles = await this.$directus.items("articles").readByQuery({
-          fields: ["*", "topics.topics_id.*"],
-          sort: "date_created"
-        })
-      } else {
-        articles = await this.$directus.items("articles").readByQuery({
-          fields: ["*", "topics.topics_id.*"],
-          filter: {
-            'topics': {
-              'topics_id': {
-                '_in': val
-              }
-            }
-          },
-          sort: "date_created"
-        })
-      }
-      this.articles = articles.data
+  async fetch () {
+    try {
+      const categories = await this.$axios.get(
+        `https://fio40ecz.directus.app/items/categories?fields=*`
+      )
+      this.categories = categories.data.data
+    } catch (err) {
+      console.log(err)
     }
   },
   methods: {

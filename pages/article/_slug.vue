@@ -3,11 +3,11 @@
       <v-row class="mt-1">
         <v-col cols="12" sm="6">
           <h1>
-            {{ article.title }}?
+            {{ article.title ? article.title : 'Loading' }}?
           </h1>
           <p class="mt-2">
             <b>
-              {{ article.description }}
+              {{ article.description ? article.description : 'Loading' }}
             </b>
           </p>
           <v-chip-group
@@ -101,17 +101,22 @@ export default {
       ]
     }
   },
-  async asyncData ({ route, $directus }) {
-    const article = await $directus.items(`articles/${route.params.slug}`).readByQuery({
-      fields: ["*", "topics.topics_id.*"],
-      sort: "-date_created"
-    })
-    return { article: article.data }
+  async fetch () {
+    try {
+      const article = await this.$axios.get(
+        `https://fio40ecz.directus.app/items/articles/${this.$route.params.slug}?fields=*,topics.topics_id.*`
+      )
+      this.article = article.data.data
+      console.log(article)
+    } catch (err) {
+      console.log(err)
+    }
   },
   data () {
     return {
       rating: 0,
-      shareAvailable: false
+      shareAvailable: false,
+      article: {}
     }
   },
   mounted () {
@@ -119,15 +124,15 @@ export default {
   },
   computed: {
     twitterURL () {
-      if (this.article === undefined) return ''
+      if (this.article?.topics === undefined) return ''
       return `https://twitter.com/intent/tweet?text=${this.article.title}&url=https://how-does-it-work.netlify.app${this.$nuxt.$route.path}&hashtags=#${this.article.topics[0].topics_id.title}#${this.article.topics[1].topics_id.title}#`
     },
     facebookURL () {
-      if (this.article === undefined) return ''
+      if (this.article?.topics === undefined) return ''
       return `https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhow-does-it-work.netlify.app%2Farticle%${this.article.id}F2&amp;src=sdkpreparse`
     },
     mailURL () {
-      if (this.article === undefined) return ''
+      if (this.article?.topics === undefined) return ''
       return `mailto:?to=&body=https://how-does-it-work.netlify.app/article/${this.article.id}%0D%0A%0D%0A${this.article.article.replace(/<[^>]*>/g, '')}&subject=Look what I've found: ${this.article.title}`
     }
   },

@@ -1,6 +1,7 @@
 <template>
   <div class="mb-5">
     <a
+      target="_blank"
       class="share-button"
       :href="twitterUrl"
       data-size="large"
@@ -10,6 +11,7 @@
       </v-icon>
     </a>
     <a
+      target="_blank"
       class="share-button ml-4"
       :href="mailUrl"
       data-size="large"

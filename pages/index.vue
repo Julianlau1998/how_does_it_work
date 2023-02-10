@@ -50,7 +50,7 @@
       </v-col>
     </v-row>
     <div
-      v-for="(category, index) in categories"
+      v-for="(category, index) in shuffleArray(categories)"
     >
       <v-col
         v-if="index !== 0"
@@ -68,7 +68,7 @@
           no-gutters
         >
           <v-col
-            v-for="(article, id) in articles.filter(a => a.category === category.id)"
+            v-for="(article, id) in shuffleArray(articles.filter(a => a.category === category.id))"
             :key="id"
           >
             <card
@@ -122,23 +122,30 @@ export default {
   data () {
     return {
       articles: [],
+      categories: [],
+      topics: [],
       filter: []
     }
   },
-  async asyncData ({ $directus }) {
-    const articles = await $directus.items("articles").readByQuery({
-      fields: ["*", "topics.topics_id.*"],
-      sort: "date_created"
-    })
-    const categories = await $directus.items("categories").readByQuery({
-      fields: ["*"],
-      sort: "date_created"
-    })
-    const topics = await $directus.items("topics").readByQuery({
-      fields: ["*"],
-      sort: "date_created"
-    })
-    return { articles: articles.data, categories: categories.data, topics: topics.data }
+  async fetch () {
+    try {
+      const articles = await this.$axios.get('https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*')
+      this.articles = articles.data.data
+    } catch (err) {
+      console.log(err)
+    }
+    try {
+      const categories = await this.$axios.get('https://fio40ecz.directus.app/items/categories')
+      this.categories = categories.data.data
+    } catch (err) {
+      console.log(err)
+    }
+    try {
+      const topics = await this.$axios.get('https://fio40ecz.directus.app/items/topics')
+      this.topics = topics.data.data
+    } catch (err) {
+      console.log(err)
+    }
   },
   watch: {
     async filter (val) {
