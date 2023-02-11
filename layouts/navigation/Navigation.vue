@@ -6,7 +6,7 @@
       fixed
       app
     >
-      <v-app-bar-nav-icon />
+      <v-app-bar-nav-icon @click="drawer=!drawer" />
       <v-toolbar-title @click="home" class="is-cursor-pointer">
         {{ title }}
       </v-toolbar-title>
@@ -59,6 +59,10 @@ export default {
   props: {
     title: {
       type: String,
+      required: true
+    },
+    items: {
+      type: Array,
       required: true
     }
   },

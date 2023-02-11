@@ -23,8 +23,8 @@
       </v-col>
     </v-row>
     <Articles
-      :categories="categories"
-      :articles="articles"
+      :categories="shuffleArray(categories)"
+      :articles="shuffleArray(articles)"
       @openCategory="openCategory"
       @open="open"
       @addFilter="addFilter"
@@ -69,13 +69,13 @@ export default {
   async fetch () {
     try {
       const articles = await this.$axios.get('https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*')
-      this.articles = this.shuffleArray(articles.data.data)
+      this.articles = articles.data.data
     } catch (err) {
       console.log(err)
     }
     try {
       const categories = await this.$axios.get('https://fio40ecz.directus.app/items/categories')
-      this.categories = this.shuffleArray(categories.data.data)
+      this.categories = categories.data.data
     } catch (err) {
       console.log(err)
     }

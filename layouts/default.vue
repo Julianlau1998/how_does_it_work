@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <Navigation :items="items" />
+    <Navigation :title="title" :items="items" />
     <v-main>
       <v-container>
         <Nuxt />
