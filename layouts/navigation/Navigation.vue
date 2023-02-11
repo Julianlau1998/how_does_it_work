@@ -20,7 +20,7 @@
     >
     <div color="primary" class="is-navigation-top-part mb-4">
       <h3 class="mt-4 ml-4">
-        How Does It Work?
+        {{ title }}
       </h3>
     </div>
     <v-divider class="mb-6" />
