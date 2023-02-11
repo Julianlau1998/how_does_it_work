@@ -65,14 +65,47 @@ export default {
     manifest: {
       name: 'How Does It Work',
       lang: 'en',
-      icons: ['~/static/icon.png'],
       background_color: '#121212',
-      theme_color: '#2a343c'
+      theme_color: '#2a343c',
+      icons:[{
+        src:'~/static/icon.png',
+        size:"144x144",
+        type:"image/png"
+      },{
+        src:'~/static/icon.png',
+        size:"128x128",
+        type:"image/png"
+      },{
+        src:'~/static/icon.png',
+        size:"152x152",
+        type:"image/png"
+      },{
+        src:'~/static/icon.png',
+        size:"180x180",
+        type:"image/png"
+      },{
+        src:'~/static/icon.png',
+        size:"192x192",
+        type:"image/png"
+      }, {
+        src:'~/static/icon.png',
+        size:"256x256",
+        type:"image/png"
+      }
+      ]
     },
     icon: {
       source: '~/static/icon.png',
       fileName: 'icon.png'
-    }
+    },
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'apple-mobile-web-app-capable', content: 'yes' },
+      { name: 'apple-mobile-web-app-status-bar-style', content:'#2a343c'},
+      { name: 'apple-mobile-web-app-title', content:"How Does It Work"},
+      { hid: 'description-pwa', name: 'description', content: 'You always wanted to understand how the world around you and the technology you use works? You found the right place!' },
+    ]
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
