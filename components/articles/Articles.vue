@@ -4,9 +4,17 @@
       v-for="(category, index) in categories"
     >
       <span v-if="articles.filter(article => article.category === category.id).length">
-        <h2 :class="index !== 0 ? 'mt-4' : 'mt-8'">
+        <h2
+          v-if="categories.length > 1"
+          @click="$emit('openCategory', category.id)"
+          :class="index !== 0 ? 'mt-4' : 'mt-8'"
+          class="is-cursor-pointer"
+        >
           {{ category.title }}:
         </h2>
+        <h1 v-else :class="index !== 0 ? 'mt-4' : 'mt-8'">
+          {{ category.title }}
+        </h1>
         <v-row
           v-if="articles && articles.length"
           class="mb-6"
