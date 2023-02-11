@@ -27,7 +27,6 @@
       :articles="shuffleArray(articles)"
       :max-amount="6"
       @openCategory="openCategory"
-      @open="open"
       @addFilter="addFilter"
     />
   </v-container>
@@ -108,9 +107,6 @@ export default {
         })
       }
       this.articles = articles.data
-    },
-    open (id) {
-      this.$router.push({path: `/article/${id}`});
     },
     openCategory (id) {
       this.$router.push({path: `/categories/category/${id}`});

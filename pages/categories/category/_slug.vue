@@ -53,9 +53,6 @@ export default {
     }
   },
   methods: {
-    open (id) {
-      this.$router.push({path: `/article/${id}`});
-    },
     shuffleArray (array) {
       let j, x, i
       for (i = array.length - 1; i > 0; i--) {

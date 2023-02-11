@@ -23,7 +23,7 @@
               :img="article.image"
               :id="JSON.stringify(article.id)"
               cta="Read now"
-              @open="$emit('open', article.id)"
+              @open="open(article.id)"
               @addFilter="addFilter"
             >
             </card>
@@ -73,6 +73,9 @@ export default {
     },
     addFilter(filter) {
       this.$emit('addFilter', filter)
+    },
+    open (id) {
+      this.$router.push({path: `/article/${id}`});
     }
   }
 }
