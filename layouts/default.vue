@@ -103,7 +103,7 @@ export default {
           to: '/privacy'
         },
         {
-          icon: 'mdi-information',
+          icon: 'mdi-scale-balance',
           title: 'Terms And Conditions',
           to: '/termsConditions'
         }
