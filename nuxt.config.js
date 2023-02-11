@@ -8,6 +8,13 @@ export default {
   head: {
     titleTemplate: '%s',
     title: 'How Does It Work',
+    script: [
+      {
+        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
+        'data-ad-client': 'ca-pub-1006221991146598',
+        async: true
+      }
+    ],
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width,initial-scale=1.0,user-scalable=no' },
