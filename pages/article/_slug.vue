@@ -107,7 +107,6 @@ export default {
         `https://fio40ecz.directus.app/items/articles/${this.$route.params.slug}?fields=*,topics.topics_id.*`
       )
       this.article = article.data.data
-      console.log(article)
     } catch (err) {
       console.log(err)
     }
