@@ -66,7 +66,7 @@
         </NuxtLink>
         |
         <NuxtLink class="is-link ml-4" to="/termsConditions">
-          Terms And Conditions
+          Terms
         </NuxtLink>
       </span>
     </v-footer>
