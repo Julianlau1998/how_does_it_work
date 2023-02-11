@@ -10,9 +10,9 @@ export default {
     title: 'How Does It Work',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'viewport', content: 'width=device-width,initial-scale=1.0,user-scalable=no' },
       { hid: 'description', name: 'description', content: 'You always wanted to understand how the world around you and the technology you use works? You found the right place!' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
