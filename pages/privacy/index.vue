@@ -71,12 +71,12 @@
 export default {
   head () {
     return {
-      title: 'Imprint - How Does It Work',
+      title: 'Privacy - How Does It Work',
       meta: [
         {
-          hid: 'description_Imprint',
+          hid: 'description_Privacy',
           name: 'description',
-          content: "Data Security information for 'How Does It Work' by Julian Lau"
+          content: "Privacy information for 'How Does It Work' by Julian Lau"
         }
       ]
     }

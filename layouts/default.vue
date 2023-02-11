@@ -59,6 +59,16 @@
       <span>
         &copy; {{ new Date().getFullYear() }} Julian Lau
       </span>
+      <v-spacer></v-spacer>
+      <span class="mr-6 mr-2-xs">
+        <NuxtLink class="is-link mr-4" to="/privacy">
+          Privacy Policy
+        </NuxtLink>
+        |
+        <NuxtLink class="is-link ml-4" to="/termsConditions">
+          Terms And Conditions
+        </NuxtLink>
+      </span>
     </v-footer>
   </v-app>
 </template>
@@ -89,8 +99,13 @@ export default {
         // },
         {
           icon: 'mdi-information',
-          title: 'Imprint',
-          to: '/imprint'
+          title: 'Privacy',
+          to: '/privacy'
+        },
+        {
+          icon: 'mdi-information',
+          title: 'Terms And Conditions',
+          to: '/termsConditions'
         }
       ],
       miniVariant: false,

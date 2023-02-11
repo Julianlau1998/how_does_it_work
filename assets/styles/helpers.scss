@@ -11,6 +11,13 @@
   border-radius: 10px;
 }
 
+.v-application a {
+  &.is-link {
+    color: white;
+    cursor: pointer;
+  }
+}
+
 .mb-max {
   margin-bottom: 15rem !important;
 }
