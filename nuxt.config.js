@@ -12,7 +12,8 @@ export default {
       {
         src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js',
         'data-ad-client': 'ca-pub-1006221991146598',
-        async: true
+        async: true,
+        crossorigin: 'anonymous'
       }
     ],
     meta: [
