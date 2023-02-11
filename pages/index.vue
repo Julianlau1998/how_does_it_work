@@ -25,6 +25,7 @@
     <Articles
       :categories="shuffleArray(categories)"
       :articles="shuffleArray(articles)"
+      :max-amount="6"
       @openCategory="openCategory"
       @open="open"
       @addFilter="addFilter"

@@ -13,7 +13,7 @@
           no-gutters
         >
           <v-col
-            v-for="(article, id) in articles.filter(a => a.category === category.id)"
+            v-for="(article, id) in filteredArticles(category)"
             :key="id"
           >
             <card
@@ -30,7 +30,7 @@
           </v-col>
         </v-row>
         <v-btn
-          v-if="articles.filter(article => article.category === category.id).length === 6"
+          v-if="articles.filter(article => article.category === category.id).length >= maxAmount && maxAmount !== 0"
           @click="$emit('openCategory', category.id)"
           class="mt-negative-6 mb-5"
         >
@@ -59,9 +59,18 @@ export default {
     articles: {
       type: Array,
       required: true
+    },
+    maxAmount: {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   methods: {
+    filteredArticles (category) {
+      if (this.maxAmount === 0) return this.articles.filter(a => a.category === category.id)
+      return this.articles.filter(a => a.category === category.id).slice(0, this.maxAmount)
+    },
     addFilter(filter) {
       this.$emit('addFilter', filter)
     }

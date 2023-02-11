@@ -1,39 +1,18 @@
 <template>
   <v-container>
-    <h1>
-      {{ category.title }}
-    </h1>
-    <v-col cols="12">
-      <v-divider />
-    </v-col>
-    <span v-if="articles.length">
-        <v-row
-          v-if="articles && articles.length"
-          class="mb-6"
-        >
-          <v-col
-            v-for="(article, id) in articles"
-            :key="id"
-          >
-            <card
-              :title="article.title"
-              :description="article.description"
-              :topics="article.topics"
-              :img="article.image"
-              :id="JSON.stringify(article.id)"
-              cta="Open"
-              @open="open(article.id)"
-            >
-            </card>
-          </v-col>
-        </v-row>
-      </span>
+    <Articles
+      :categories="[category]"
+      :articles="this.articles"
+    />
   </v-container>
 </template>
 
 <script>
+import Articles from "~/components/articles/Articles"
+
 export default {
   name: "category",
+  components: {Articles},
   transition: 'route',
   head () {
     let category = this.category;
