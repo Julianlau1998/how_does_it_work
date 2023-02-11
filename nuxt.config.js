@@ -98,14 +98,13 @@ export default {
       source: '~/static/icon.png',
       fileName: 'icon.png'
     },
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'apple-mobile-web-app-capable', content: 'yes' },
-      { name: 'apple-mobile-web-app-status-bar-style', content:'#2a343c'},
-      { name: 'apple-mobile-web-app-title', content:"How Does It Work"},
-      { hid: 'description-pwa', name: 'description', content: 'You always wanted to understand how the world around you and the technology you use works? You found the right place!' },
-    ]
+    meta: {
+      appleStatusBarStyle: '#2a343c',
+      mobileApp: true,
+      mobileAppIOS: true,
+      theme_color: '#2a343c',
+      ogImage: '~/static/icon.png'
+    }
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
