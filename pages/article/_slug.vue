@@ -86,7 +86,7 @@ export default {
         },
         {
           property: "og:image",
-          content: this.articleImage
+          content: this.article.image
         },
         { hid: 'og:title_og_article', property: 'og:title', content: this.article.title },
         { hid: 'og:url_og_article', property: 'og:url', content: `https://how-does-it-work.netlify.app${this.$nuxt.$route.path}` },
