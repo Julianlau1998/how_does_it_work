@@ -46,6 +46,24 @@
           <div v-html="article.article" />
         </v-col>
       </v-row>
+      <Articles
+        class="mt-8"
+        :categories="category"
+        :articles="categoryArticles"
+        :max-amount="3"
+        :title="'Similar Articles'"
+        @openCategory="openCategory(article.category)"
+      />
+      <h1 class="mt-8 mb-negative-5">
+        More Articles
+      </h1>
+      <Articles
+        class="mt-8"
+        :categories="categories"
+        :articles="articles"
+        :max-amount="3"
+        @openCategory="openCategory(article.category)"
+      />
       <div id="lateral" v-if="shareAvailable">
         <v-fab-transition>
           <v-btn
@@ -103,10 +121,21 @@ export default {
   },
   async fetch () {
     try {
-      const article = await this.$axios.get(
-        `https://fio40ecz.directus.app/items/articles/${this.$route.params.slug}?fields=*,topics.topics_id.*`
+      const articles = await this.$axios.get(
+        `https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*`
       )
-      this.article = article.data.data
+      this.article = articles.data.data.filter((article) => article.id === parseInt(this.$route.params.slug))[0]
+      this.articles = this.shuffleArray(articles.data.data.filter((article) => article.id !== this.article.id))
+      this.categoryArticles = this.shuffleArray(this.articles.filter((article) => article.category === this.article.category && article.id !== this.article.id))
+    } catch (err) {
+      console.log(err)
+    }
+    try {
+      const categories = await this.$axios.get(
+        `https://fio40ecz.directus.app/items/categories?fields=*`
+      )
+      this.categories = this.shuffleArray(categories.data.data)
+      this.category = this.categories.filter((category) => category.id === this.article.category)
     } catch (err) {
       console.log(err)
     }
@@ -115,7 +144,11 @@ export default {
     return {
       rating: 0,
       shareAvailable: false,
-      article: {}
+      article: {},
+      categoryArticles: [],
+      articles: [],
+      category: {},
+      categories: []
     }
   },
   mounted () {
@@ -136,6 +169,9 @@ export default {
     }
   },
   methods: {
+    openCategory (id) {
+      this.$router.push({path: `/categories/category/${id}`})
+    },
     async share () {
       if (navigator?.share === undefined) return
       const response = await fetch(this.article.image)
@@ -155,6 +191,16 @@ export default {
         files: filesArray,
         url: `https://how-does-it-work.netlify.app${this.$nuxt.$route.path}`
       })
+    },
+    shuffleArray (array) {
+      let j, x, i
+      for (i = array.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1))
+        x = array[i]
+        array[i] = array[j]
+        array[j] = x
+      }
+      return array
     }
   }
 }

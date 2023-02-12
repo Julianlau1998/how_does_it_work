@@ -10,10 +10,10 @@
           :class="index !== 0 ? 'mt-4' : 'mt-8'"
           class="is-cursor-pointer"
         >
-          {{ category.title }}:
+          {{ title.length ? title : category.title }}:
         </h2>
         <h1 v-else :class="index !== 0 ? 'mt-4' : 'mt-8'">
-          {{ category.title }}
+          {{ title.length ? title : category.title }}:
         </h1>
         <v-row
           v-if="articles && articles.length"
@@ -72,6 +72,11 @@ export default {
       type: Number,
       required: false,
       default: 0
+    },
+    title: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   methods: {
