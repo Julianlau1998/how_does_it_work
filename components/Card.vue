@@ -21,7 +21,6 @@
     <v-card-title class="is-cursor-pointer" @click="$emit('open')">
       {{ title }}
     </v-card-title>
-
     <v-card-text class="is-cursor-pointer" @click="$emit('open')">
       <div>
         {{ description }}
