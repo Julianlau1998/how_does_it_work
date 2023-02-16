@@ -27,8 +27,8 @@
       </p>
     </v-card-text>
 
-    <v-divider class="mx-4"></v-divider>
-    <v-card-text>
+    <v-divider class="mx-4" :class="!topics.length ? 'mt-negative-2' : ''"></v-divider>
+    <v-card-text v-if="topics.length">
       <v-chip-group
         active-class="deep-purple accent-4 white--text"
         column
@@ -50,6 +50,7 @@
       <v-btn
         color="blue lighten-2"
         text
+        :class="!topics.length ? 'mb-negative-6' : ''"
         @click="$emit('open')"
       >
         {{ cta }}

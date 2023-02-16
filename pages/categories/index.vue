@@ -17,7 +17,7 @@
           >
             <card
               :title="category.title"
-              :description="''"
+              :description="category.description"
               :topics="[]"
               :img="category.image"
               :id="JSON.stringify(category.id)"
