@@ -1,6 +1,6 @@
 <template>
   <v-container>
-      <h1>
+      <h1 class="mt-4">
         Categories
       </h1>
       <v-col cols="12">
