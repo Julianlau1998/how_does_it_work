@@ -6,28 +6,11 @@
       <v-col cols="12">
         <v-divider />
       </v-col>
-      <span v-if="categories.length">
-        <v-row
-          v-if="categories && categories.length"
-          class="mb-6"
-        >
-          <v-col
-            v-for="(category, id) in categories"
-            :key="id"
-          >
-            <card
-              :title="category.title"
-              :description="category.description"
-              :topics="[]"
-              :img="category.image"
-              :id="JSON.stringify(category.id)"
-              cta="Open"
-              @open="open(category.id)"
-            >
-            </card>
-          </v-col>
-        </v-row>
-      </span>
+    <categories
+      v-if="categories.length"
+      :categories="categories"
+      @open="open"
+    />
   </v-container>
 </template>
 
@@ -60,7 +43,7 @@ export default {
       const categories = await this.$axios.get(
         `https://fio40ecz.directus.app/items/categories?fields=*`
       )
-      this.categories = categories.data.data
+      this.categories = this.shuffleArray(categories.data.data)
     } catch (err) {
       console.log(err)
     }
@@ -71,6 +54,16 @@ export default {
     },
     open (id) {
       this.$router.push({path: `/categories/category/${id}`});
+    },
+    shuffleArray (array) {
+      let j, x, i
+      for (i = array.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1))
+        x = array[i]
+        array[i] = array[j]
+        array[j] = x
+      }
+      return array
     }
   }
 }

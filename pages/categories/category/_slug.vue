@@ -2,17 +2,27 @@
   <v-container>
     <Articles
       :categories="[category]"
-      :articles="shuffleArray(this.articles)"
+      :articles="shuffleArray(articles)"
+    />
+    <h1 v-if="articles.length && category.title" class="mt-12">
+      Discover Other Categories:
+    </h1>
+    <Categories
+      v-if="articles.length"
+      :categories="categories"
+      :max-amount="3"
+      @open="open"
     />
   </v-container>
 </template>
 
 <script>
 import Articles from "~/components/articles/Articles"
+import Categories from "~/components/categories/Categories";
 
 export default {
   name: "category",
-  components: {Articles},
+  components: {Categories, Articles},
   transition: 'route',
   head () {
     let category = this.category;
@@ -30,7 +40,8 @@ export default {
   data () {
     return {
       articles: [],
-      category: {}
+      category: {},
+      categories: []
     }
   },
   async fetch () {
@@ -51,6 +62,15 @@ export default {
     } catch (err) {
       console.log(err)
     }
+
+    try {
+      const categories = await this.$axios.get(
+        `https://fio40ecz.directus.app/items/categories?fields=*`
+      )
+      this.categories = this.shuffleArray(categories.data.data.filter(category => category.id !== this.category.id))
+    } catch (err) {
+      console.log(err)
+    }
   },
   methods: {
     shuffleArray (array) {
@@ -62,6 +82,9 @@ export default {
         array[j] = x
       }
       return array
+    },
+    open (id) {
+      this.$router.push({path: `/categories/category/${id}`});
     }
   }
 }
