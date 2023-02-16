@@ -78,34 +78,34 @@ export default {
       background_color: '#121212',
       theme_color: '#2a343c',
       icons:[{
-        src:'~/static/icon.png',
+        src:'icon.png',
         size:"144x144",
         type:"image/png"
       },{
-        src:'~/static/icon.png',
+        src:'icon.png',
         size:"128x128",
         type:"image/png"
       },{
-        src:'~/static/icon.png',
+        src:'icon.png',
         size:"152x152",
         type:"image/png"
       },{
-        src:'~/static/icon.png',
+        src:'icon.png',
         size:"180x180",
         type:"image/png"
       },{
-        src:'~/static/icon.png',
+        src:'icon.png',
         size:"192x192",
         type:"image/png"
       }, {
-        src:'~/static/icon.png',
+        src:'icon.png',
         size:"256x256",
         type:"image/png"
       }
       ]
     },
     icon: {
-      source: '~/static/icon.png',
+      src:'icon.png',
       fileName: 'icon.png'
     },
     meta: {
@@ -113,7 +113,7 @@ export default {
       mobileApp: true,
       mobileAppIOS: true,
       theme_color: '#2a343c',
-      ogImage: '~/static/icon.png'
+      src:'icon.png',
     }
   },
 
