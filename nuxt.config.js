@@ -17,7 +17,7 @@ export default {
         crossorigin: 'anonymous'
       }
     ],
-    meta: [
+    meta: [,
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width,initial-scale=1.0,user-scalable=no' },
       { hid: 'description', name: 'description', content: 'You always wanted to understand how the world around you and the technology you use works? You found the right place!' },
