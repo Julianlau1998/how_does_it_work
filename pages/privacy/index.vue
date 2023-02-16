@@ -1,9 +1,8 @@
 <template>
   <div class="privacyWrapper is-text-align-center">
-    <h1 class="mainHeader is-size-3 mb-5">
+    <h1 class="mainHeader is-size-3 mb-5 mt-4">
       Privacy policy
     </h1>
-    <v-divider class="mb-6" />
     <p>
       The responsible party under the data protection laws, in particular the EU General Data Protection Regulation (GDPR), is: <br> <br> Julian Lau <br> Email: jlauapps@gmail.com <br><br>
     </p>

@@ -1,6 +1,10 @@
 <template>
   <div class="mt-5">
-    <h2 class="mb-4"><strong>Terms and Conditions</strong></h2>
+    <h1 class="mb-4 is-size-3 mt-4">
+      <strong>
+        Terms and Conditions
+      </strong>
+    </h1>
 
     <p>Welcome to How Does It Work!</p>
 
