@@ -22,9 +22,9 @@
       {{ title }}
     </v-card-title>
     <v-card-text class="is-cursor-pointer" @click="$emit('open')">
-      <div>
+      <p>
         {{ description }}
-      </div>
+      </p>
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>

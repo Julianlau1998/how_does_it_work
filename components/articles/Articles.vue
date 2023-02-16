@@ -15,6 +15,12 @@
         <h1 v-else :class="index !== 0 ? 'mt-4' : 'mt-8'">
           {{ title.length ? title : category.title }}:
         </h1>
+        <p
+          @click="$emit('openCategory', category.id)"
+          :class="categories.length > 1 ? 'is-cursor-pointer' : ''"
+        >
+          {{ category.description }}
+        </p>
         <v-row
           v-if="articles && articles.length"
           class="mb-6"

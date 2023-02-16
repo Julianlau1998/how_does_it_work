@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <h1>
-      Welcome!
+    <h1 class="mt-3">
+      How Does It Work!
     </h1>
     <p>
       You always wanted to understand how the world around you works?
