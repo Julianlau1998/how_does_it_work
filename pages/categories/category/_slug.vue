@@ -2,7 +2,7 @@
   <v-container>
     <Articles
       :categories="[category]"
-      :articles="shuffleArray(articles)"
+      :articles="articles"
     />
     <h1 v-if="articles.length && category.title" class="mt-12">
       Discover Other Categories:
@@ -45,11 +45,21 @@ export default {
     }
   },
   async fetch () {
+    function shuffleArray (array) {
+      let j, x, i
+      for (i = array.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1))
+        x = array[i]
+        array[i] = array[j]
+        array[j] = x
+      }
+      return array
+    }
     try {
       const articles = await this.$axios.get(
         `https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*&filter[category][_in]=${this.$route.params.slug}`
       )
-      this.articles = articles.data.data
+      this.articles = shuffleArray(articles.data.data)
     } catch (err) {
       console.log(err)
     }
@@ -67,22 +77,12 @@ export default {
       const categories = await this.$axios.get(
         `https://fio40ecz.directus.app/items/categories?fields=*`
       )
-      this.categories = this.shuffleArray(categories.data.data.filter(category => category.id !== this.category.id))
+      this.categories = shuffleArray(categories.data.data.filter(category => category.id !== this.category.id))
     } catch (err) {
       console.log(err)
     }
   },
   methods: {
-    shuffleArray (array) {
-      let j, x, i
-      for (i = array.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1))
-        x = array[i]
-        array[i] = array[j]
-        array[j] = x
-      }
-      return array
-    },
     open (id) {
       this.$router.push({path: `/categories/category/${id}`});
     }

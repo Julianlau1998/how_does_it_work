@@ -62,7 +62,7 @@
         :categories="categories"
         :articles="articles"
         :max-amount="3"
-        @openCategory="openCategory(article.category)"
+        @openCategory="openCategory"
       />
       <div id="lateral" v-if="shareAvailable">
         <v-fab-transition>
@@ -125,7 +125,7 @@ export default {
         `https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*`
       )
       this.article = articles.data.data.filter((article) => article.id === parseInt(this.$route.params.slug))[0]
-      this.articles = this.shuffleArray(articles.data.data.filter((article) => article.id !== this.article.id))
+      this.articles = this.shuffleArray(articles.data.data.filter((article) => article.id !== this.article.id && article.category !== this.article.category))
       this.categoryArticles = this.shuffleArray(this.articles.filter((article) => article.category === this.article.category && article.id !== this.article.id))
     } catch (err) {
       console.log(err)

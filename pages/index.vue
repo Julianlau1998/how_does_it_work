@@ -23,8 +23,8 @@
       </v-col>
     </v-row>
     <Articles
-      :categories="shuffleArray(categories)"
-      :articles="shuffleArray(articles)"
+      :categories="categories"
+      :articles="articles"
       :max-amount="6"
       @openCategory="openCategory"
       @addFilter="addFilter"
@@ -67,15 +67,25 @@ export default {
     }
   },
   async fetch () {
+    function shuffleArray (array) {
+      let j, x, i
+      for (i = array.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1))
+        x = array[i]
+        array[i] = array[j]
+        array[j] = x
+      }
+      return array
+    }
     try {
       const articles = await this.$axios.get('https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*')
-      this.articles = articles.data.data
+      this.articles = shuffleArray(articles.data.data)
     } catch (err) {
       console.log(err)
     }
     try {
       const categories = await this.$axios.get('https://fio40ecz.directus.app/items/categories')
-      this.categories = categories.data.data
+      this.categories = shuffleArray(categories.data.data)
     } catch (err) {
       console.log(err)
     }
@@ -88,6 +98,7 @@ export default {
   },
   methods: {
     async filterArticles (filter) {
+      if (!filter.length) return
       let articles
       if (!filter.length) {
         articles = await this.$directus.items("articles").readByQuery({
@@ -110,16 +121,6 @@ export default {
     },
     openCategory (id) {
       this.$router.push({path: `/categories/category/${id}`});
-    },
-    shuffleArray (array) {
-      let j, x, i
-      for (i = array.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1))
-        x = array[i]
-        array[i] = array[j]
-        array[j] = x
-      }
-      return array
     },
     addFilter (filter) {
       const exits = this.filter.filter((exitstingFilter) => exitstingFilter === filter.topics_id.id).length
