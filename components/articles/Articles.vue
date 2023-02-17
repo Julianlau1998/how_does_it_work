@@ -48,6 +48,7 @@
           v-if="articles.filter(article => article.category === category.id).length >= maxAmount && maxAmount !== 0"
           @click="$emit('openCategory', category.id)"
           class="mt-negative-6 mb-5"
+          aria-label="show more"
         >
           Show more
         </v-btn>

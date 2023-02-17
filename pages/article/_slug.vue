@@ -75,6 +75,7 @@
             bottom
             left
             class="v-btn--example"
+            aria-label="share"
           >
             <v-icon>
               mdi-share-variant

@@ -19,7 +19,7 @@ export default {
     ],
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width,initial-scale=1.0,user-scalable=no' },
+      { name: 'viewport', content: 'width=device-width,initial-scale=1.0' },
       { hid: 'description', name: 'description', content: 'You always wanted to understand how the world around you and the technology you use works? You found the right place!' },
       { name: 'format-detection', content: 'telephone=no' },
       { name: 'google-site-verification', content: 'x0HrtEs5YOt35p2HZorevdUW_6E7xEjnfhWkr1O5Sr4' },

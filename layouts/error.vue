@@ -12,7 +12,7 @@
       {{ otherError }}
     </h1>
     <span class="mt-6">
-      <v-btn @click="home">
+      <v-btn @click="home" aria-label="home">
         Home page
       </v-btn>
     </span>

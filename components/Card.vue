@@ -52,6 +52,7 @@
         text
         :class="!topics.length ? 'mb-negative-6' : ''"
         @click="$emit('open')"
+        aria-label="read"
       >
         {{ cta }}
       </v-btn>
