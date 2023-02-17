@@ -17,6 +17,7 @@
         </h1>
         <p
           @click="$emit('openCategory', category.id)"
+          class="mb-negative-2"
           :class="categories.length > 1 ? 'is-cursor-pointer' : ''"
         >
           {{ category.description }}
