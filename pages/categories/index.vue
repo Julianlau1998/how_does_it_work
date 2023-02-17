@@ -24,7 +24,7 @@ export default {
       title: 'Categories - How Does It Work',
       meta: [
         {
-          hid: 'description_category',
+          hid: 'description_categories',
           name: 'description',
           content: 'Discover different categories of articles about how the world works.'
         }

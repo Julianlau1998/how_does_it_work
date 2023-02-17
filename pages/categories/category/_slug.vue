@@ -31,8 +31,8 @@ export default {
       title: `${category.title} - How Does It Work`,
       meta: [
         {
-          hid: `description`,
-          name: 'description',
+          hid: `description_category`,
+          name: 'description_category',
           content: `Discover informational articles about the topic ${category.title}`
         }]
     }

@@ -133,14 +133,12 @@ export default {
       title: 'Terms And Condition - How Does It Work',
       meta: [
         {
-          hid: 'description_Privacy',
-          name: 'description',
+          hid: 'description_terms',
+          name: 'description_terms',
           content: "Privacy information for 'How Does It Work' by Julian Lau"
         }
       ]
     }
   },
 }
-</script>
-
 </script>

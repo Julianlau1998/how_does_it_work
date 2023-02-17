@@ -73,8 +73,8 @@ export default {
       title: 'Privacy - How Does It Work',
       meta: [
         {
-          hid: 'description_Privacy',
-          name: 'description',
+          hid: 'description_privacy',
+          name: 'description_privacy',
           content: "Privacy information for 'How Does It Work' by Julian Lau"
         }
       ]
