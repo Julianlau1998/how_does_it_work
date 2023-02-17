@@ -11,15 +11,17 @@
     <v-divider></v-divider>
       <v-row v-if="topics && topics.length" align="center" class="mt-2">
         <v-col
-          class="d-flex mb-negative-5-5"
+          class="d-flex mb-negative-5-5 min-height-filter"
           cols="12"
         >
-          <FilterElement
-            :key="rand"
-            :filter-prop="filter"
-            :topics-prop="topics"
-            @filter="filterArticles"
-          />
+          <client-only>
+            <FilterElement
+              :key="rand"
+              :filter-prop="filter"
+              :topics-prop="topics"
+              @filter="filterArticles"
+            />
+          </client-only>
         </v-col>
       </v-row>
     <Articles
