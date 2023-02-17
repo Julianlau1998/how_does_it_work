@@ -43,10 +43,13 @@ export default {
       const categories = await this.$axios.get(
         `https://fio40ecz.directus.app/items/categories?fields=*`
       )
-      this.categories = this.shuffleArray(categories.data.data)
+      this.categories = categories.data.data
     } catch (err) {
       console.log(err)
     }
+  },
+  beforeMount() {
+    this.categories = this.shuffleArray(this.categories)
   },
   methods: {
     removeFilter (id) {

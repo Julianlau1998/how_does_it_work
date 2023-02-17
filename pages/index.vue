@@ -9,19 +9,19 @@
       You found the right place!
     </p>
     <v-divider></v-divider>
-    <v-row v-if="topics && topics.length" align="center" class="mt-2">
-      <v-col
-        class="d-flex mb-negative-5-5"
-        cols="12"
-      >
-        <FilterElement
-          :key="rand"
-          :filter-prop="filter"
-          :topics-prop="topics"
-          @filter="filterArticles"
-        />
-      </v-col>
-    </v-row>
+      <v-row v-if="topics && topics.length" align="center" class="mt-2">
+        <v-col
+          class="d-flex mb-negative-5-5"
+          cols="12"
+        >
+          <FilterElement
+            :key="rand"
+            :filter-prop="filter"
+            :topics-prop="topics"
+            @filter="filterArticles"
+          />
+        </v-col>
+      </v-row>
     <Articles
       :categories="categories"
       :articles="articles"
@@ -67,27 +67,15 @@ export default {
     }
   },
   async fetch () {
-    function shuffleArray (array) {
-      let j, x, i
-      for (i = array.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1))
-        x = array[i]
-        array[i] = array[j]
-        array[j] = x
-      }
-      return array
-    }
     try {
-      let articles = await this.$axios.get('https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*')
-      articles = shuffleArray(articles.data.data)
-      this.articles = articles
+      const articles = await this.$axios.get('https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*')
+      this.articles = articles.data.data
     } catch (err) {
       console.log(err)
     }
     try {
-      let categories = await this.$axios.get('https://fio40ecz.directus.app/items/categories')
-      categories = shuffleArray(categories.data.data)
-      this.categories = categories
+      const categories = await this.$axios.get('https://fio40ecz.directus.app/items/categories')
+      this.categories = categories.data.data
     } catch (err) {
       console.log(err)
     }
@@ -97,6 +85,10 @@ export default {
     } catch (err) {
       console.log(err)
     }
+  },
+  beforeMount() {
+    this.articles = this.shuffleArray(this.articles)
+    this.categories = this.shuffleArray(this.categories)
   },
   methods: {
     async filterArticles (filter) {
@@ -133,6 +125,16 @@ export default {
       }
       this.rand = Math.random()
       window.scrollTo(0, 0)
+    },
+    shuffleArray (array) {
+      let j, x, i
+      for (i = array.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1))
+        x = array[i]
+        array[i] = array[j]
+        array[j] = x
+      }
+      return array
     }
   }
 }
