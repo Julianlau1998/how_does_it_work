@@ -1,14 +1,21 @@
 <template>
   <v-app dark>
-    <h1 v-if="error.statusCode === 404">
-      {{ pageNotFound }}
-    </h1>
+    <span v-if="error.statusCode === 404">
+      <h1>
+        {{pageNotFound}}
+      </h1>
+      <p>
+        We could not find your requested page
+      </p>
+    </span>
     <h1 v-else>
       {{ otherError }}
     </h1>
-    <NuxtLink to="/">
-      Home page
-    </NuxtLink>
+    <span class="mt-6">
+      <v-btn @click="home">
+        Home page
+      </v-btn>
+    </span>
   </v-app>
 </template>
 
@@ -24,7 +31,7 @@ export default {
   },
   data () {
     return {
-      pageNotFound: '404 Not Found',
+      pageNotFound: '404',
       otherError: 'An error occurred'
     }
   },
@@ -34,12 +41,12 @@ export default {
     return {
       title
     }
+  },
+  methods: {
+    home () {
+      this.$router.push({path: '/'});
+    }
   }
 }
 </script>
 
-<style scoped>
-h1 {
-  font-size: 20px;
-}
-</style>
