@@ -6,7 +6,7 @@
       fixed
       app
     >
-      <v-app-bar-nav-icon @click="drawer=!drawer" />
+      <v-app-bar-nav-icon @click="drawer=!drawer" aria-label="menu" />
       <v-toolbar-title @click="home" class="is-cursor-pointer">
         {{ title }}
       </v-toolbar-title>
