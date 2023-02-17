@@ -78,14 +78,16 @@ export default {
       return array
     }
     try {
-      const articles = await this.$axios.get('https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*')
-      this.articles = shuffleArray(articles.data.data)
+      let articles = await this.$axios.get('https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*')
+      articles = shuffleArray(articles.data.data)
+      this.articles = articles
     } catch (err) {
       console.log(err)
     }
     try {
-      const categories = await this.$axios.get('https://fio40ecz.directus.app/items/categories')
-      this.categories = shuffleArray(categories.data.data)
+      let categories = await this.$axios.get('https://fio40ecz.directus.app/items/categories')
+      categories = shuffleArray(categories.data.data)
+      this.categories = categories
     } catch (err) {
       console.log(err)
     }
