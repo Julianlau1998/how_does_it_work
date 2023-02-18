@@ -46,6 +46,7 @@
           <div v-html="article.article" />
         </v-col>
       </v-row>
+      <AdCard class="mt-9" />
       <Articles
         class="mt-8"
         :categories="category"
@@ -87,10 +88,12 @@
 </template>
 
 <script>
-import SocialShare from "~/components/base/SocialShare";
+import SocialShare from "~/components/base/SocialShare"
+import AdCard from "~/components/ads/AdCard"
+
 export default {
   name: "_slug",
-  components: {SocialShare},
+  components: {SocialShare, AdCard},
   transition: 'route',
   head () {
     let article = this.article;

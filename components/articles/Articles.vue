@@ -28,8 +28,8 @@
           no-gutters
         >
           <v-col
-            v-for="(article, id) in filteredArticles(category)"
-            :key="id"
+            v-for="(article, index) in filteredArticles(category)"
+            :key="index"
           >
             <card
               :title="`${article.title}?`"
@@ -58,6 +58,7 @@
           cols="12"
         >
         <v-divider />
+          <AdCard class="mt-9" />
       </v-col>
       </span>
     </div>
@@ -65,8 +66,11 @@
 </template>
 
 <script>
+import AdCard from "~/components/ads/AdCard";
 export default {
   name: "Articles",
+  components: {AdCard},
+
   props: {
     categories: {
       type: Array,
