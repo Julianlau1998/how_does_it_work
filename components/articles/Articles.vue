@@ -58,7 +58,7 @@
           cols="12"
         >
         <v-divider />
-          <AdCard class="mt-9" />
+          <AdBanner class="mt-9" />
       </v-col>
       </span>
     </div>
@@ -66,10 +66,10 @@
 </template>
 
 <script>
-import AdCard from "~/components/ads/AdCard";
+import AdBanner from "~/components/ads/AdBanner";
 export default {
   name: "Articles",
-  components: {AdCard},
+  components: {AdBanner},
 
   props: {
     categories: {
