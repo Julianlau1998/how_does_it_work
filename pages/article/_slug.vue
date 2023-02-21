@@ -179,13 +179,14 @@ export default {
     async share () {
       if (navigator?.share === undefined) return
       const response = await fetch(this.article.image)
+      console.log(response)
       const blob = await response.blob()
       const filesArray = [
         new File(
           [blob],
           `${this.article.title.replaceAll(' ', '_')}.jpg`,
           {
-            type: "image/jpeg",
+            type: blob.type,
             lastModified: new Date().getTime()
           }
         )
