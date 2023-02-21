@@ -165,11 +165,11 @@ export default {
     },
     facebookURL () {
       if (this.article?.topics === undefined) return ''
-      return `https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhow-does-it-work.netlify.app%2Farticle%${this.article.id}F2&amp;src=sdkpreparse`
+      return `https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fhow-does-it-work.netlify.app%2Farticle%${this.article.slug}F2&amp;src=sdkpreparse`
     },
     mailURL () {
       if (this.article?.topics === undefined) return ''
-      return `mailto:?to=&body=https://how-does-it-work.netlify.app/article/${this.article.id}%0D%0A%0D%0A${this.article.article.replace(/<[^>]*>/g, '')}&subject=Look what I've found: ${this.article.title}`
+      return `mailto:?to=&body=https://how-does-it-work.netlify.app/article/${this.article.slug}%0D%0A%0D%0A${this.article.article.replace(/<[^>]*>/g, '')}&subject=Look what I've found: ${this.article.title}`
     }
   },
   methods: {
