@@ -6,7 +6,7 @@
       <span v-if="articles.filter(article => article.category === category.id).length">
         <h2
           v-if="categories.length > 1"
-          @click="$emit('openCategory', category.id)"
+          @click="$emit('openCategory', category.slug)"
           :class="index !== 0 ? 'mt-4' : 'mt-8'"
           class="is-cursor-pointer"
         >
@@ -16,7 +16,7 @@
           {{ title.length ? title : category.title }}:
         </h1>
         <p
-          @click="$emit('openCategory', category.id)"
+          @click="$emit('openCategory', category.slug)"
           class="mb-negative-2"
           :class="categories.length > 1 ? 'is-cursor-pointer' : ''"
         >
@@ -37,10 +37,10 @@
               :topics="article.topics"
               :img="article.image"
               :id="JSON.stringify(article.id)"
-              :link="`/article/${article.id}`"
+              :link="`/article/${article.slug}`"
               cta="Read now"
               @addFilter="addFilter"
-              @open="open(article.id)"
+              @open="open(article.slug)"
             >
             </card>
           </v-col>
@@ -102,8 +102,8 @@ export default {
     addFilter(filter) {
       this.$emit('addFilter', filter)
     },
-    open (id) {
-      this.$router.push({path: `/article/${id}`});
+    open (slug) {
+      this.$router.push({path: `/article/${slug}`});
     }
   }
 }

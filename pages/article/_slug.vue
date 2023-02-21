@@ -92,7 +92,7 @@ import SocialShare from "~/components/base/SocialShare"
 import AdBanner from "~/components/ads/AdBanner"
 
 export default {
-  name: "_slug",
+  name: "article",
   components: {SocialShare, AdBanner},
   transition: 'route',
   head () {
@@ -128,7 +128,7 @@ export default {
       const articles = await this.$axios.get(
         `https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*`
       )
-      this.article = articles.data.data.filter((article) => article.id === parseInt(this.$route.params.slug))[0]
+      this.article = articles.data.data.filter((article) => article.slug === this.$route.params.slug)[0]
       this.articles = this.shuffleArray(articles.data.data.filter((article) => article.id !== this.article.id && article.category !== this.article.category))
       this.categoryArticles = this.shuffleArray(articles.data.data.filter((article) => article.category === this.article.category && article.id !== this.article.id))
     } catch (err) {

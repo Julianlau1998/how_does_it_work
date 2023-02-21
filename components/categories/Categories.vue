@@ -14,9 +14,9 @@
           :topics="[]"
           :img="category.image"
           :id="JSON.stringify(category.id)"
-          :link="`/categories/category/${category.id}`"
+          :link="`/categories/category/${category.slug}`"
           cta="Open"
-          @open="$emit('open', category.id)"
+          @open="$emit('open', category.slug)"
         >
         </card>
       </v-col>

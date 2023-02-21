@@ -55,8 +55,8 @@ export default {
     removeFilter (id) {
       this.filter = this.filter.filter((filter) => filter !== id)
     },
-    open (id) {
-      this.$router.push({path: `/categories/category/${id}`});
+    open (slug) {
+      this.$router.push({path: `/categories/category/${slug}`});
     },
     shuffleArray (array) {
       let j, x, i

@@ -115,8 +115,8 @@ export default {
       }
       this.articles = articles.data
     },
-    openCategory (id) {
-      this.$router.push({path: `/categories/category/${id}`});
+    openCategory (slug) {
+      this.$router.push({path: `/categories/category/${slug}`})
     },
     addFilter (filter) {
       const exits = this.filter.filter((exitstingFilter) => exitstingFilter === filter.topics_id.id).length
