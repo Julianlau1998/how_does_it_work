@@ -14,6 +14,7 @@
           :topics="[]"
           :img="category.image"
           :id="JSON.stringify(category.id)"
+          :link="`/categories/category/${category.id}`"
           cta="Open"
           @open="$emit('open', category.id)"
         >

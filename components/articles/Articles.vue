@@ -37,18 +37,21 @@
               :topics="article.topics"
               :img="article.image"
               :id="JSON.stringify(article.id)"
+              :link="`/article/${article.id}`"
               cta="Read now"
-              @open="open(article.id)"
               @addFilter="addFilter"
+              @open="open(article.id)"
             >
             </card>
           </v-col>
         </v-row>
         <v-btn
           v-if="articles.filter(article => article.category === category.id).length >= maxAmount && maxAmount !== 0"
-          @click="$emit('openCategory', category.id)"
-          class="mt-negative-6 mb-5"
+          :to="`/categories/category/${category.id}`"
+          class="is-button mt-negative-6 mb-5 fw-600"
           aria-label="show more"
+          text
+          nuxt
         >
           Show more
         </v-btn>
@@ -57,9 +60,9 @@
           class="mt-negative-3"
           cols="12"
         >
-        <v-divider />
-          <AdBanner class="mt-9" />
-      </v-col>
+          <v-divider />
+            <AdBanner class="mt-9" />
+        </v-col>
       </span>
     </div>
   </v-container>

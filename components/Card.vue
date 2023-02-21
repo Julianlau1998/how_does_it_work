@@ -47,15 +47,16 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn
+      <NuxtLink
+        :to="link"
         color="blue lighten-2"
         text
+        class="is-link-button mb-1"
         :class="!topics.length ? 'mb-negative-6' : ''"
-        @click="$emit('open')"
         aria-label="read"
       >
         {{ cta }}
-      </v-btn>
+      </NuxtLink>
     </v-card-actions>
   </v-card>
 </template>
@@ -85,6 +86,10 @@ export default {
       type: String
     },
     cta: {
+      required: true,
+      type: String
+    },
+    link: {
       required: true,
       type: String
     }
