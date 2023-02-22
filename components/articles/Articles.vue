@@ -47,7 +47,7 @@
         </v-row>
         <v-btn
           v-if="articles.filter(article => article.category === category.id).length >= maxAmount && maxAmount !== 0"
-          :to="`/categories/category/${category.id}`"
+          :to="`/categories/category/${category.slug}`"
           class="is-button mt-negative-6 mb-5 fw-600"
           aria-label="show more"
           text
