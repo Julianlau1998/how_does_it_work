@@ -46,18 +46,21 @@
           <div v-html="article.article" />
         </v-col>
       </v-row>
-      <AdBanner class="mt-9" />
+      <br>
+      <h2 class="mt-16 mb-negative-5-5 is-h-1">
+        Similar Articles
+      </h2>
       <Articles
         class="mt-8"
         :categories="category"
         :articles="categoryArticles"
         :max-amount="3"
-        :title="'Similar Articles'"
+        :hide-title="true"
         @openCategory="openCategory(article.category)"
       />
-      <h1 class="mt-8 mb-negative-5">
+      <h2 class="mt-8 mb-negative-5 is-h-1">
         More Articles
-      </h1>
+      </h2>
       <Articles
         class="mt-8"
         :categories="categories"

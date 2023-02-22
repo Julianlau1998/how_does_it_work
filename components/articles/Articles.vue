@@ -4,24 +4,26 @@
       v-for="(category, index) in categories"
     >
       <span v-if="articles.filter(article => article.category === category.id).length">
-        <h2
-          v-if="categories.length > 1"
-          @click="$emit('openCategory', category.slug)"
-          :class="index !== 0 ? 'mt-4' : 'mt-8'"
-          class="is-cursor-pointer"
-        >
-          {{ title.length ? title : category.title }}:
-        </h2>
-        <h1 v-else :class="index !== 0 ? 'mt-4' : 'mt-8'">
-          {{ title.length ? title : category.title }}:
-        </h1>
-        <p
-          @click="$emit('openCategory', category.slug)"
-          class="mb-negative-2"
-          :class="categories.length > 1 ? 'is-cursor-pointer' : ''"
-        >
-          {{ category.description }}
-        </p>
+        <span v-if="!hideTitle">
+          <h2
+            v-if="categories.length > 1"
+            @click="$emit('openCategory', category.slug)"
+            :class="index !== 0 ? 'mt-11' : 'mt-8'"
+            class="is-cursor-pointer"
+          >
+            {{ title.length ? title : category.title }}:
+          </h2>
+          <h1 v-else :class="index !== 0 ? 'mt-4' : 'mt-8'">
+            {{ title.length ? title : category.title }}:
+          </h1>
+          <p
+            @click="$emit('openCategory', category.slug)"
+            class="mb-negative-2"
+            :class="categories.length > 1 ? 'is-cursor-pointer' : ''"
+          >
+            {{ category.description }}
+          </p>
+        </span>
         <v-row
           v-if="articles && articles.length"
           class="mb-6"
@@ -61,7 +63,6 @@
           cols="12"
         >
           <v-divider />
-            <AdBanner class="mt-9" />
         </v-col>
       </span>
     </div>
@@ -69,10 +70,8 @@
 </template>
 
 <script>
-import AdBanner from "~/components/ads/AdBanner";
 export default {
   name: "Articles",
-  components: {AdBanner},
 
   props: {
     categories: {
@@ -92,6 +91,11 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    hideTitle: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   methods: {

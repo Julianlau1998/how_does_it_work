@@ -77,3 +77,9 @@
 .fw-600 {
   font-weight: 600;
 }
+
+h2 {
+  &.is-h-1 {
+    font-size: 2em !important;
+  }
+}
