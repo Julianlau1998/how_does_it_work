@@ -39,14 +39,8 @@ export default {
     }
   },
   async fetch () {
-    try {
-      const categories = await this.$axios.get(
-        `https://fio40ecz.directus.app/items/categories?fields=*`
-      )
+      const categories = await this.$axios.get(`https://fio40ecz.directus.app/items/categories?fields=*`)
       this.categories = categories.data.data
-    } catch (err) {
-      console.log(err)
-    }
   },
   beforeMount() {
     this.categories = this.shuffleArray(this.categories)

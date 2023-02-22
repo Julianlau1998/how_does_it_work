@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+const axios = require('axios')
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -146,12 +147,15 @@ export default {
   build: {
   },
 
-  generate: {
+/*  generate: {
     fallback: true,
     routes: [
       '/categories',
       '/termsConditions',
       '/privacy',
-    ]
+    ],
+  },*/
+  generate: {
+    fallback: true,
   }
 }

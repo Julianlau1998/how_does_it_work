@@ -45,24 +45,14 @@ export default {
     }
   },
   async fetch () {
-    try {
-      const categories = await this.$axios.get(
-        `https://fio40ecz.directus.app/items/categories?fields=*`
-      )
+      const categories = await this.$axios.get(`https://fio40ecz.directus.app/items/categories?fields=*`)
       this.category = categories.data.data.filter(category => category.slug === this.$route.params.slug)[0]
       this.categories = categories.data.data.filter(category => category.id !== this.category.id)
-    } catch (err) {
-      console.log(err)
-    }
 
-    try {
       const articles = await this.$axios.get(
         `https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*&filter[category][_in]=${this.category.id}`
       )
       this.articles = articles.data.data
-    } catch (err) {
-      console.log(err)
-    }
   },
   beforeMount() {
     this.articles = this.shuffleArray(this.articles)
