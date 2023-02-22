@@ -149,10 +149,9 @@ export default {
   generate: {
     fallback: true,
     routes: [
-      '/*',
+      '/article/*',
       '/categories/category/*',
       '/categories',
-      '/etc',
     ]
   }
 }
