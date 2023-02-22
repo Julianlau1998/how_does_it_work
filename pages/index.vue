@@ -41,6 +41,7 @@ import FilterElement from "~/components/base/FilterElement";
 export default {
   name: 'IndexPage',
   transition: 'route',
+  scrollToTop: true,
   head () {
     return {
       title: 'How does it work - Home',
