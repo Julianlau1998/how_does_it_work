@@ -1,12 +1,9 @@
 import colors from 'vuetify/es5/util/colors'
-const axios = require('axios')
 
 export default {
-  // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
   ssr: true,
 
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s',
     title: 'How Does It Work',
@@ -29,48 +26,43 @@ export default {
     ]
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     "~/assets/styles/main.scss"
   ],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
   ],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@/modules/sitemapRouteGenerator',
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '~/modules/directus',
+    '@nuxtjs/sitemap'
   ],
+
+  sitemap: {
+    hostname: 'https://how-works.com',
+  },
 
   directus: {
     url: process.env.DIRECTUS_URL,
     auth: {
       email: process.env.DIRECTUS_EMAIL,
       password: process.env.DIRECTUS_PASSWORD,
-      // token: process.env.DIRECTUS_STATIC_TOKEN,
     },
   },
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
   },
 
-  // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
       name: 'How Does It Work',
@@ -142,7 +134,6 @@ export default {
     }
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
   generate: {
