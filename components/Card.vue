@@ -1,8 +1,8 @@
 <template>
   <v-card
-    class="mx-auto my-12"
-    max-width="357"
-    min-width="300"
+    class="mx-auto my-12 v-card"
+    max-width="352"
+    min-width="200"
   >
     <template slot="progress">
       <v-progress-linear

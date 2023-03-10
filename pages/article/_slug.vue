@@ -48,21 +48,18 @@
         </v-col>
       </v-row>
       <br>
-      <span v-if="categoryArticles.length">
-        <h2 class="mt-16 mb-negative-5-5 is-h-1">
+        <h2 v-if="categoryArticles.length" class="mt-16 mb-negative-5-5 is-h-1">
           Similar Articles
         </h2>
         <Articles
           class="mt-8"
-          :categories="[category]"
+          :categories="category"
           :articles="categoryArticles"
           :max-amount="3"
           :hide-title="true"
           @openCategory="openCategory(article.category)"
         />
-      </span>
-      <span v-if="articles.length">
-        <h2 class="mt-8 mb-negative-5 is-h-1">
+        <h2 v-if="categoryArticles.length" class="mt-8 mb-negative-5 is-h-1">
           More Articles
         </h2>
         <Articles
@@ -72,7 +69,6 @@
           :max-amount="3"
           @openCategory="openCategory"
         />
-      </span>
       <div id="lateral" v-if="shareAvailable">
         <v-fab-transition>
           <v-btn
