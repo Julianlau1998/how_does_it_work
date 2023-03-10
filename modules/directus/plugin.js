@@ -5,11 +5,11 @@ const directusPlugin = async (context, inject) => {
 
   const directus = new Directus(url)
 
-  if (auth.email && auth.password) {
+/*  if (auth.email && auth.password) {
     await directus.auth.login({ email: auth.email, password: auth.password })
   } else if (auth.token) {
     await directus.auth.static(auth.token)
-  }
+  }*/
 
   inject('directus', directus)
 }
