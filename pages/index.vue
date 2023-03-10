@@ -70,13 +70,13 @@ export default {
     }
   },
   async fetch () {
-      const articles = await this.$axios.get('https://fio40ecz.directus.app/items/articles?fields=*,topics.topics_id.*')
+      const articles = await this.$axios.get('https://cms-how-works.com/items/articles?fields=*,topics.topics_id.*')
       this.articles = articles.data.data
 
-      const categories = await this.$axios.get('https://fio40ecz.directus.app/items/categories')
+      const categories = await this.$axios.get('https://cms-how-works.com/items/categories')
       this.categories = categories.data.data
 
-      const topics = await this.$axios.get('https://fio40ecz.directus.app/items/topics')
+      const topics = await this.$axios.get('https://cms-how-works.com/items/topics')
       this.topics = topics.data.data
   },
   beforeMount() {

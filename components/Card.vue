@@ -15,7 +15,7 @@
        @click="$emit('open')"
        class="is-cursor-pointer"
        height="250"
-       :src="`https://fio40ecz.directus.app/assets/${img}`"
+       :src="`https://cms-how-works.com/assets/${img}`"
      ></v-img>
 
     <v-card-title class="is-cursor-pointer" @click="$emit('open')">
