@@ -16,6 +16,7 @@
         >
           <client-only>
             <FilterElement
+              v-if="!categories.loading"
               :key="`${rand}-filter`"
               :filter-prop="filter"
               :topics-prop="topics.data"
