@@ -62,7 +62,6 @@ export default {
   created () {
     this.topics = this.topicsProp
     this.filter = this.filterProp
-    this.$emit('filter', this.filter)
   },
   methods: {
     removeFilter (id) {

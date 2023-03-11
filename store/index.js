@@ -26,16 +26,16 @@ export default () => new Vuex.Store({
     GET_ARTICLES (state) {
       state.articles.loading = true
     },
-    async RECEIVE_ARTICLES (state, articles) {
-      articles = await shuffleArray(articles)
-      state.articles.data = await articles
+    RECEIVE_ARTICLES (state, articles) {
+      articles = shuffleArray(articles)
+      state.articles.data = articles
       state.articles.loading = false
     },
     GET_CATEGORIES (state) {
       state.categories.loading = true
     },
-    async RECEIVE_CATEGORIES (state, categories) {
-      categories = await shuffleArray(categories)
+    RECEIVE_CATEGORIES (state, categories) {
+      categories = shuffleArray(categories)
       state.categories.data = categories
       state.categories.loading = false
     },
