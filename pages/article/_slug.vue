@@ -191,7 +191,7 @@ export default {
         )
       ]
       await navigator.share({
-        text: this.article.title,
+        text: `${this.article.title}?`,
         url: `https://how-works.com${this.$nuxt.$route.path}`
       })
     },
