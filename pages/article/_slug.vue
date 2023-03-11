@@ -192,7 +192,6 @@ export default {
       ]
       await navigator.share({
         text: this.article.title,
-        files: filesArray,
         url: `https://how-does-it-work.netlify.app${this.$nuxt.$route.path}`
       })
     },
