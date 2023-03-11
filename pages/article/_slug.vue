@@ -132,16 +132,17 @@ export default {
       ]
     }
   },
+  async fetch () {
+      await this.$store.dispatch('getArticles')
+      await this.$store.dispatch('getCategories')
+  },
   data () {
     return {
       rating: 0,
       shareAvailable: false
     }
   },
-  async mounted () {
-    await this.$store.dispatch('getArticles')
-    await this.$store.dispatch('getCategories')
-
+  mounted () {
     this.shareAvailable = navigator.share !== undefined
   },
   computed: {
