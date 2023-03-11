@@ -115,9 +115,6 @@ export default {
       this.rand = Math.random(10000)
       window.scrollTo(0, 0)
     }
-  },
-  beforeDestroy() {
-    this.filter = []
   }
 }
 </script>
