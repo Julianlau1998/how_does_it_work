@@ -89,7 +89,7 @@ export default {
       topics: (state) => state.topics
     })
   },
-  created() {
+  mounted() {
     this.filter = []
     this.rand = Math.random(10000)
   },
