@@ -192,7 +192,7 @@ export default {
       ]
       await navigator.share({
         text: this.article.title,
-        url: `https://how-does-it-work.netlify.app${this.$nuxt.$route.path}`
+        url: `https://how-works.com${this.$nuxt.$route.path}`
       })
     },
     shuffleArray (array) {
