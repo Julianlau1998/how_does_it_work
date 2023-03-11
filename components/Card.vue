@@ -47,6 +47,7 @@
           v-for="(topic, index) in topics"
           :key="`card-chip-${index}`"
           active-class="no-active white--text"
+          class="is-hoverable"
           @click="$emit('addFilter', topic)"
         >
           <span>

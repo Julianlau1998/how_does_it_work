@@ -14,7 +14,11 @@
             active-class="blue lighten-2 white--text"
             column
           >
-            <v-chip v-for="(topic, id) in article.topics" :key="id">
+            <v-chip
+              v-for="(topic, id) in article.topics"
+              :key="id"
+              active-class="no-active"
+            >
               {{ topic.topics_id.title }}
             </v-chip>
           </v-chip-group>

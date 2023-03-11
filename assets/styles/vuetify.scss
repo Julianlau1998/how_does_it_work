@@ -14,5 +14,7 @@
 }
 
 .v-chip:hover {
-  background-color: #64B5F6 !important;
+  &.is-hoverable {
+    background-color: #64B5F6 !important;
+  }
 }

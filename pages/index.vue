@@ -88,6 +88,9 @@ export default {
       topics: (state) => state.topics
     })
   },
+  created() {
+    this.filter = []
+  },
   methods: {
     async filterArticles (filter) {
       this.filter = filter
