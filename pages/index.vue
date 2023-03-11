@@ -89,7 +89,8 @@ export default {
     })
   },
   created() {
-    this.filter = []
+    this.filter = [],
+    this.rand = Math.random(10000)
   },
   methods: {
     async filterArticles (filter) {
