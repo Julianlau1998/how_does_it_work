@@ -16,20 +16,27 @@
         >
           <client-only>
             <FilterElement
-              :key="rand"
+              :key="`${rand}-filter`"
               :filter-prop="filter"
-              :topics-prop="topics"
+              :topics-prop="topics.data"
               @filter="filterArticles"
             />
           </client-only>
         </v-col>
       </v-row>
     <Articles
-      :categories="categories"
-      :articles="articles"
+      v-if="!articles.loading && !categories.loading"
+      :categories="categories.data"
+      :articles="articles.data"
       :max-amount="6"
       @openCategory="openCategory"
       @addFilter="addFilter"
+    />
+    <Articles
+      v-else
+      :categories="[{id: 1, title: 'Loading', description: 'Loading...'}]"
+      :articles="loadingArticles"
+      :max-amount="6"
     />
   </v-container>
 </template>
@@ -38,6 +45,7 @@
 import Card from "~/components/Card"
 import Articles from "~/components/articles/Articles";
 import FilterElement from "~/components/base/FilterElement";
+import {mapState} from "vuex";
 export default {
   name: 'IndexPage',
   transition: 'route',
@@ -62,49 +70,32 @@ export default {
   components: {FilterElement, Articles, Card },
   data () {
     return {
-      articles: [],
-      categories: [],
-      topics: [],
       filter: [],
-      rand: 0
+      rand: 0,
+      loadingArticles: [{id: 1, title: 'How does it work', description: '', category: 1, image: '', topics: [ {topics_id: {id: 1, title: 'loading...'}} ]}, {id: 2, title: 'How does it work', description: '', category: 1, image: '', topics: [ {topics_id: {id: 1, title: 'loading...'}}]}, {id: 3, title: 'How does it work', description: '', category: 1, image: '', topics: [ {topics_id: {id: 1, title: 'loading...'}}]}],
+      hideFilter: false
     }
   },
   async fetch () {
-      const articles = await this.$axios.get('https://cms-how-works.com/items/articles?fields=*,topics.topics_id.*')
-      this.articles = articles.data.data
-
-      const categories = await this.$axios.get('https://cms-how-works.com/items/categories')
-      this.categories = categories.data.data
-
-      const topics = await this.$axios.get('https://cms-how-works.com/items/topics')
-      this.topics = topics.data.data
+      await this.$store.dispatch('getArticles')
+      await this.$store.dispatch('getCategories')
+      await this.$store.dispatch('getTopics')
   },
-  beforeMount() {
-    this.articles = this.shuffleArray(this.articles)
-    this.categories = this.shuffleArray(this.categories)
+  computed: {
+  ...mapState({
+      articles: (state) => state.articles,
+      categories: (state) => state.categories,
+      topics: (state) => state.topics
+    })
   },
   methods: {
     async filterArticles (filter) {
-      if (!filter.length) return
-      let articles
+      this.filter = filter
       if (!filter.length) {
-        articles = await this.$directus.items("articles").readByQuery({
-          fields: ["*", "topics.topics_id.*"],
-          sort: "date_created"
-        })
-      } else {
-        articles = await this.$directus.items("articles").readByQuery({
-          fields: ["*", "topics.topics_id.*"],
-          filter: {
-            'topics': {
-              'topics_id': {
-                '_in': filter
-              }
-            }
-          }
-        })
+        await this.$store.dispatch('getArticles')
+        return
       }
-      this.articles = articles.data
+      await this.$store.dispatch('getFilteredArticles', filter)
     },
     openCategory (slug) {
       this.$router.push({path: `/categories/category/${slug}`})
@@ -116,18 +107,8 @@ export default {
       } else {
         this.filter = this.filter.filter((exitstingFilter) => exitstingFilter !== filter.topics_id.id)
       }
-      this.rand = Math.random()
+      this.rand = Math.random(10000)
       window.scrollTo(0, 0)
-    },
-    shuffleArray (array) {
-      let j, x, i
-      for (i = array.length - 1; i > 0; i--) {
-        j = Math.floor(Math.random() * (i + 1))
-        x = array[i]
-        array[i] = array[j]
-        array[j] = x
-      }
-      return array
     }
   }
 }

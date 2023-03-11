@@ -12,11 +12,21 @@
       ></v-progress-linear>
     </template>
      <v-img
+       v-if="title !== 'How does it work?'"
        @click="$emit('open')"
        class="is-cursor-pointer"
        height="250"
        :src="`https://cms-how-works.com/assets/${img}`"
      ></v-img>
+    <div v-else class="is-card-loader">
+      <v-progress-circular
+        :size="30"
+        :width="3"
+        color="primary"
+        indeterminate
+        class="is-center mt-6"
+      ></v-progress-circular>
+    </div>
 
     <v-card-title class="is-cursor-pointer" @click="$emit('open')">
       {{ title }}
@@ -36,7 +46,7 @@
         <v-chip
           v-for="(topic, index) in topics"
           :key="`card-chip-${index}`"
-          active-class="blue lighten-2 white--text"
+          active-class="no-active white--text"
           @click="$emit('addFilter', topic)"
         >
           <span>

@@ -3,6 +3,7 @@
     <v-col cols="8">
       <v-select
         v-model="filter"
+        @change="addFilter(filter)"
         class="mb-4"
         :items="topics"
         label="Filter"
@@ -61,15 +62,15 @@ export default {
   created () {
     this.topics = this.topicsProp
     this.filter = this.filterProp
-  },
-  watch: {
-    filter (val) {
-      this.$emit('filter', val)
-    }
+    this.$emit('filter', this.filter)
   },
   methods: {
     removeFilter (id) {
       this.filter = this.filter.filter((filter) => filter !== id)
+      this.$emit('filter', this.filter)
+    },
+    addFilter (filter) {
+      this.$emit('filter', filter)
     }
   }
 }

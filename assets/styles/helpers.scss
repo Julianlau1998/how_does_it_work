@@ -2,6 +2,12 @@
   text-align: justify;
 }
 
+.is-center {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
 @for $i from 1 through 20 {
   .is-rounded-#{$i} {
     border-radius: #{$i*5}px

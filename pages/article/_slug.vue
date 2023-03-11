@@ -64,8 +64,8 @@
         </h2>
         <Articles
           class="mt-8"
-          :categories="categories"
-          :articles="articles"
+          :categories="categories.data"
+          :articles="articles.data"
           :max-amount="3"
           @openCategory="openCategory"
         />
@@ -94,6 +94,7 @@
 <script>
 import SocialShare from "~/components/base/SocialShare"
 import AdBanner from "~/components/ads/AdBanner"
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: "articleComponent",
@@ -128,32 +129,32 @@ export default {
     }
   },
   async fetch () {
-      const articles = await this.$axios.get(`https://cms-how-works.com/items/articles?fields=*,topics.topics_id.*`)
-
-      this.article = articles.data.data.filter((article) => article.slug === this.$route.params.slug)[0]
-      this.articles = this.shuffleArray(articles.data.data.filter((article) => article.id !== this.article.id && article.category !== this.article.category))
-      this.categoryArticles = this.shuffleArray(articles.data.data.filter((article) => article.category === this.article.category && article.id !== this.article.id))
-
-      const categories = await this.$axios.get(`https://cms-how-works.com/items/categories?fields=*`)
-
-      this.categories = this.shuffleArray(categories.data.data)
-      this.category = this.categories.filter((category) => category.id === this.article.category)
+      await this.$store.dispatch('getArticles')
+      await this.$store.dispatch('getCategories')
   },
   data () {
     return {
       rating: 0,
-      shareAvailable: false,
-      article: {},
-      categoryArticles: [],
-      articles: [],
-      category: {},
-      categories: []
+      shareAvailable: false
     }
   },
   mounted () {
     this.shareAvailable = navigator.share !== undefined
   },
   computed: {
+    ...mapState({
+      articles: (state) => state.articles,
+      categories: (state) => state.categories,
+    }),
+    article () {
+      return this.articles?.data?.filter((article) => article.slug === this.$route.params.slug)[0]
+    },
+    category () {
+      return this.categories?.data?.filter((category) => category.id === this.article.category)
+    },
+    categoryArticles () {
+      return this.shuffleArray(this.articles.data.filter((article) => article.category === this.article.category && article.id !== this.article.id))
+    },
     twitterURL () {
       if (this.article?.topics === undefined) return ''
       return `https://twitter.com/intent/tweet?text=${this.article.title}&url=https://how-does-it-work.netlify.app${this.$nuxt.$route.path}&hashtags=#${this.article.topics[0].topics_id.title}#${this.article.topics[1].topics_id.title}#`
@@ -174,7 +175,6 @@ export default {
     async share () {
       if (navigator?.share === undefined) return
       const response = await fetch(this.article.image)
-      console.log(response)
       const blob = await response.blob()
       const filesArray = [
         new File(
