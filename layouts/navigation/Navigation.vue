@@ -18,10 +18,12 @@
       temporary
       app
     >
-    <div color="primary" class="is-navigation-top-part mb-4">
-      <h3 class="mt-4 ml-4">
-        {{ title }}
-      </h3>
+    <div color="primary" class="is-navigation-top-part">
+      <div class="is-nav-title ml-4">
+        <b>
+          {{ title }}
+        </b>
+      </div>
     </div>
     <v-divider class="mb-6" />
     <v-list rounded>
