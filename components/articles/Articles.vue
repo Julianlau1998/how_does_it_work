@@ -109,9 +109,6 @@ export default {
     open (slug) {
       this.$router.push({path: `/article/${slug}`});
     }
-  },
-  beforeDestroy() {
-    this.filter = []
   }
 }
 </script>
