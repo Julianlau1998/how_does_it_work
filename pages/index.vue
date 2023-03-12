@@ -19,7 +19,7 @@
               v-if="categories.length"
               :key="`${rand}-filter`"
               :filter-prop="filter"
-              :topics-prop="topics.data"
+              :topics-prop="topics"
               @filter="filterArticles"
             />
           </client-only>
