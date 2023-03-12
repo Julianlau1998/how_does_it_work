@@ -68,7 +68,7 @@
         </h2>
         <Articles
           class="mt-8"
-          :categories="categories.data"
+          :categories="categories.data.filter((category) => category.id !== article.category)"
           :articles="articles.data"
           :max-amount="3"
           @openCategory="openCategory"
