@@ -19,21 +19,7 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width,initial-scale=1.0' },
       { name: 'format-detection', content: 'telephone=no' },
-      { name: 'google-site-verification', content: 'x0HrtEs5YOt35p2HZorevdUW_6E7xEjnfhWkr1O5Sr4' },
-      {
-        hid: 'cookiebot',
-        id: 'Cookiebot',
-        src: 'https://consent.cookiebot.com/uc.js',
-        'data-cbid': 'ed8f9eb9-999a-476a-9d00-5941856c39b6',
-        'data-blockingmode': 'auto',
-        type: 'text/javascript'
-      },
-      {
-        hid: 'CookieDeclaration',
-        id: 'CookieDeclaration',
-        src: 'https://consent.cookiebot.com/ed8f9eb9-999a-476a-9d00-5941856c39b6/cd.js',
-        type: 'text/javascript'
-      }
+      { name: 'google-site-verification', content: 'x0HrtEs5YOt35p2HZorevdUW_6E7xEjnfhWkr1O5Sr4' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
