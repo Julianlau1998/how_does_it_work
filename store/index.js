@@ -13,6 +13,10 @@ export default () => new Vuex.Store({
       loading: false,
       data: []
     },
+    article: {
+      loading: false,
+      data: {}
+    },
     categories: {
       loading: false,
       data: []
@@ -24,19 +28,28 @@ export default () => new Vuex.Store({
   }),
   mutations: {
     GET_ARTICLES (state) {
+      state.articles.data = []
       state.articles.loading = true
     },
     async RECEIVE_ARTICLES (state, articles) {
-      console.log('receive articles')
-      articles = await articles
+      articles = await shuffleArray(articles)
       state.articles.data = await articles
       state.articles.loading = false
     },
+    GET_ARTICLE (state) {
+      state.article.data = {}
+      state.article.loading = true
+    },
+    RECEIVE_ARTICLE (state, article) {
+      state.article.data = article
+      state.article.loading = false
+    },
     GET_CATEGORIES (state) {
+      state.categories.data = []
       state.categories.loading = true
     },
     async RECEIVE_CATEGORIES (state, categories) {
-      categories = await categories
+      categories = await shuffleArray(categories)
       state.categories.data = categories
       state.categories.loading = false
     },
@@ -51,8 +64,20 @@ export default () => new Vuex.Store({
   actions: {
     async getArticles({commit}) {
         commit('GET_ARTICLES')
-        const response = await axios.get(`${host}/items/articles?fields=*,topics.topics_id.*`)
+        const response = await axios.get(`${host}/items/articles?fields=id,slug,title,description,image,category,topics.topics_id.*`)
         commit('RECEIVE_ARTICLES', response.data.data)
+    },
+    async getArticle({commit}, slug) {
+      commit('GET_ARTICLE')
+      const response = await this.$directus.items("articles").readByQuery({
+        fields: ["*", "topics.topics_id.*"],
+        filter: {
+          'slug': {
+            '_eq': slug
+          }
+        }
+      })
+      commit('RECEIVE_ARTICLE', response.data)
     },
     async getFilteredArticles ({commit}, filter) {
       commit('GET_ARTICLES')

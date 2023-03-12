@@ -98,14 +98,14 @@
 <script>
 import SocialShare from "~/components/base/SocialShare"
 import AdBanner from "~/components/ads/AdBanner"
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: "articleComponent",
   components: {SocialShare, AdBanner},
   transition: 'route',
   head () {
-    let article = this.article;
+    let article = this.article
 
     return {
       title: `${article.title} - How Does It Work`,
@@ -117,7 +117,7 @@ export default {
         },
         {
           property: "og:image",
-          content: this.article.image
+          content: article.image
         },
         { hid: 'og:title_og_article', property: 'og:title', content: this.article.title },
         { hid: 'og:url_og_article', property: 'og:url', content: `https://how-works.com${this.$nuxt.$route.path}` },
@@ -133,13 +133,23 @@ export default {
     }
   },
   async fetch () {
-      await this.$store.dispatch('getArticles')
-      await this.$store.dispatch('getCategories')
+    const response = await this.$directus.items("articles").readByQuery({
+      fields: ["*", "topics.topics_id.*"],
+      filter: {
+        'slug': {
+          '_eq': this.$route.params.slug
+        }
+      }
+    })
+    this.article = response.data[0]
+    await this.$store.dispatch('getArticles')
+    await this.$store.dispatch('getCategories')
   },
   data () {
     return {
       rating: 0,
-      shareAvailable: false
+      shareAvailable: false,
+      article: {}
     }
   },
   mounted () {
@@ -150,9 +160,6 @@ export default {
       articles: (state) => state.articles,
       categories: (state) => state.categories,
     }),
-    article () {
-      return this.articles?.data?.filter((article) => article.slug === this.$route.params.slug)[0]
-    },
     category () {
       return this.categories?.data?.filter((category) => category.id === this.article.category)
     },
