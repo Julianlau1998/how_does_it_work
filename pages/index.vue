@@ -16,7 +16,7 @@
         >
           <client-only>
             <FilterElement
-              v-if="!categories.loading"
+              v-if="categories.length"
               :key="`${rand}-filter`"
               :filter-prop="filter"
               :topics-prop="topics.data"
@@ -26,9 +26,9 @@
         </v-col>
       </v-row>
     <Articles
-      v-if="!articles.loading && !categories.loading"
-      :categories="categories.data"
-      :articles="articles.data"
+      v-if="articles.length && categories.length"
+      :categories="categories"
+      :articles="articles"
       :max-amount="6"
       @openCategory="openCategory"
       @addFilter="addFilter"
@@ -74,18 +74,24 @@ export default {
       filter: [],
       rand: 0,
       loadingArticles: [{id: 1, title: 'How does it work', description: '', category: 1, image: '', topics: [ {topics_id: {id: 1, title: 'loading...'}} ]}, {id: 2, title: 'How does it work', description: '', category: 1, image: '', topics: [ {topics_id: {id: 1, title: 'loading...'}}]}, {id: 3, title: 'How does it work', description: '', category: 1, image: '', topics: [ {topics_id: {id: 1, title: 'loading...'}}]}],
-      hideFilter: false
+      hideFilter: false,
+      articles: [],
+      categories: []
     }
   },
   async fetch () {
-      await this.$store.dispatch('getArticles')
-      await this.$store.dispatch('getCategories')
+      const articles = await this.$axios.get(
+        `https://cms-how-works.com/items/articles?fields=*,topics.topics_id.*`
+      )
+      this.articles = this.shuffleArray(articles.data.data)
+
+    const categories = await this.$axios.get(`https://cms-how-works.com/items/categories?fields=*`)
+      this.categories = this.shuffleArray(categories.data.data)
+
       await this.$store.dispatch('getTopics')
   },
   computed: {
   ...mapState({
-      articles: (state) => state.articles,
-      categories: (state) => state.categories,
       topics: (state) => state.topics
     })
   },
@@ -114,6 +120,16 @@ export default {
       }
       this.rand = Math.random(10000)
       window.scrollTo(0, 0)
+    },
+    shuffleArray (array) {
+      let j, x, i
+      for (i = array.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1))
+        x = array[i]
+        array[i] = array[j]
+        array[j] = x
+      }
+      return array
     }
   }
 }
