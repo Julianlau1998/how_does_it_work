@@ -28,7 +28,7 @@ export default () => new Vuex.Store({
     },
     async RECEIVE_ARTICLES (state, articles) {
       console.log('receive articles')
-      articles = await shuffleArray(articles)
+      articles = await articles
       state.articles.data = await articles
       state.articles.loading = false
     },
@@ -36,7 +36,7 @@ export default () => new Vuex.Store({
       state.categories.loading = true
     },
     async RECEIVE_CATEGORIES (state, categories) {
-      categories = await shuffleArray(categories)
+      categories = await categories
       state.categories.data = categories
       state.categories.loading = false
     },
