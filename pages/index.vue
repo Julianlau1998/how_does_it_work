@@ -85,13 +85,17 @@ export default {
     const articles = await this.$axios.get(
       `https://cms-how-works.com/items/articles?fields=*,topics.topics_id.*`
     )
-    this.articles = this.shuffleArray(articles.data.data)
+    this.articles = articles.data.data
 
     const categories = await this.$axios.get(`https://cms-how-works.com/items/categories?fields=*`)
-    this.categories = this.shuffleArray(categories.data.data)
+    this.categories = categories.data.data
 
     const topics = await axios.get(`https://cms-how-works.com/items/topics`)
     this.topics = topics.data.data
+  },
+  beforeMount() {
+    this.articles = this.shuffleArray(this.articles)
+    this.categories = this.shuffleArray(this.categories)
   },
   mounted() {
     this.filter = []
