@@ -44,9 +44,10 @@
 
 <script>
 import Card from "~/components/Card"
-import Articles from "~/components/articles/Articles";
-import FilterElement from "~/components/base/FilterElement";
-import {mapState} from "vuex";
+import Articles from "~/components/articles/Articles"
+import FilterElement from "~/components/base/FilterElement"
+import axios from "axios"
+
 export default {
   name: 'IndexPage',
   transition: 'route',
@@ -76,24 +77,21 @@ export default {
       loadingArticles: [{id: 1, title: 'How does it work', description: '', category: 1, image: '', topics: [ {topics_id: {id: 1, title: 'loading...'}} ]}, {id: 2, title: 'How does it work', description: '', category: 1, image: '', topics: [ {topics_id: {id: 1, title: 'loading...'}}]}, {id: 3, title: 'How does it work', description: '', category: 1, image: '', topics: [ {topics_id: {id: 1, title: 'loading...'}}]}],
       hideFilter: false,
       articles: [],
-      categories: []
+      categories: [],
+      topics: []
     }
   },
   async fetch () {
-      const articles = await this.$axios.get(
-        `https://cms-how-works.com/items/articles?fields=*,topics.topics_id.*`
-      )
-      this.articles = this.shuffleArray(articles.data.data)
+    const articles = await this.$axios.get(
+      `https://cms-how-works.com/items/articles?fields=*,topics.topics_id.*`
+    )
+    this.articles = this.shuffleArray(articles.data.data)
 
     const categories = await this.$axios.get(`https://cms-how-works.com/items/categories?fields=*`)
-      this.categories = this.shuffleArray(categories.data.data)
+    this.categories = this.shuffleArray(categories.data.data)
 
-      await this.$store.dispatch('getTopics')
-  },
-  computed: {
-  ...mapState({
-      topics: (state) => state.topics
-    })
+    const topics = await axios.get(`https://cms-how-works.com/items/topics`)
+    this.topics = topics.data.data
   },
   mounted() {
     this.filter = []
