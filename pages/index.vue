@@ -97,18 +97,34 @@ export default {
     this.articles = this.shuffleArray(this.articles)
     this.categories = this.shuffleArray(this.categories)
   },
-  mounted() {
+  async mounted() {
     this.filter = []
     this.rand = Math.random(10000)
+    const topics = await axios.get(`https://cms-how-works.com/items/topics`)
+    this.topics = topics.data.data
   },
   methods: {
     async filterArticles (filter) {
       this.filter = filter
+      let articles
       if (!filter.length) {
-        await this.$store.dispatch('getArticles')
-        return
+        articles = await this.$directus.items("articles").readByQuery({
+          fields: ["*", "topics.topics_id.*"],
+          sort: "date_created"
+        })
+      } else {
+        articles = await this.$directus.items("articles").readByQuery({
+          fields: ["*", "topics.topics_id.*"],
+          filter: {
+            'topics': {
+              'topics_id': {
+                '_in': filter
+              }
+            }
+          }
+        })
       }
-      await this.$store.dispatch('getFilteredArticles', filter)
+      this.articles = articles.data
     },
     openCategory (slug) {
       this.$router.push({path: `/categories/category/${slug}`})
