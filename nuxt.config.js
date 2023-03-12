@@ -45,7 +45,8 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '~/modules/directus',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    ['nuxt-matomo', { matomoUrl: 'https://howworks.matomo.cloud/', siteId: 1 }]
   ],
 
   sitemap: {
