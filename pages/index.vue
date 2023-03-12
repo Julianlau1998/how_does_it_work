@@ -136,6 +136,7 @@ export default {
       } else {
         this.filter = this.filter.filter((exitstingFilter) => exitstingFilter !== filter.topics_id.id)
       }
+      this.filterArticles(this.filter)
       this.rand = Math.random(10000)
       window.scrollTo(0, 0)
     },
