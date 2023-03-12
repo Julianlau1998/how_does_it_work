@@ -47,7 +47,7 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" class="mt-5">
+        <v-col cols="12" class="mt-8">
           <div v-html="article.article" />
         </v-col>
       </v-row>
