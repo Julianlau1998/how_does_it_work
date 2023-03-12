@@ -27,6 +27,7 @@ export default () => new Vuex.Store({
       state.articles.loading = true
     },
     async RECEIVE_ARTICLES (state, articles) {
+      console.log('receive articles')
       articles = await shuffleArray(articles)
       state.articles.data = await articles
       state.articles.loading = false
@@ -91,6 +92,7 @@ export default () => new Vuex.Store({
 })
 
 function shuffleArray (array) {
+  console.log('shuffle array')
   let j, x, i
   for (i = array.length - 1; i > 0; i--) {
     j = Math.floor(Math.random() * (i + 1))
