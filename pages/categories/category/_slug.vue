@@ -45,14 +45,14 @@ export default {
     }
   },
   async fetch () {
-      const categories = await this.$axios.get(`https://cms-how-works.com/items/categories?fields=*`)
-        .then(() => {
-          this.category = categories.data.data.filter(category => category.slug === this.$route.params.slug)[0]
-          this.categories = categories.data.data.filter(category => category.id !== this.category.id)
-          const articles = this.$axios.get(
+      await this.$axios.get(`https://cms-how-works.com/items/categories?fields=*`)
+        .then(async (res) => {
+          this.category = res.data.data.filter(category => category.slug === this.$route.params.slug)[0]
+          this.categories = res.data.data.filter(category => category.id !== this.category.id)
+          const articles = await this.$axios.get(
             `https://cms-how-works.com/items/articles?fields=*,topics.topics_id.*&filter[category][_in]=${this.category.id}`
           )
-          this.articles = articles.data.data
+          this.articles = await articles.data.data
       })
   },
   beforeMount() {

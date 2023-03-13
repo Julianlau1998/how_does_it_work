@@ -133,21 +133,33 @@ export default {
     }
   },
   async fetch () {
-    const response = await this.$directus.items("articles").readByQuery({
+    await this.$directus.items("articles").readByQuery({
       fields: ["*", "topics.topics_id.*"],
       filter: {
         'slug': {
           '_eq': this.$route.params.slug
         }
       }
-    })
-    this.article = await response.data[0]
+    }).then (async (response) => {
+        this.article = response.data[0]
+        const similar = await this.$directus.items("articles").readByQuery({
+          fields: ["id","slug","title","description","image","category","topics", "topics.topics_id.*"],
+          filter: {
+            'category': {
+              '_eq': this.article.category
+            }
+          }
+        })
+        this.similar = this.shuffleArray(await similar)
+      })
   },
   data () {
     return {
       rating: 0,
       shareAvailable: false,
-      article: {}
+      article: {},
+      similar: [],
+      categoryArticles: []
     }
   },
   async mounted () {
@@ -163,9 +175,6 @@ export default {
     }),
     category () {
       return this.categories?.data?.filter((category) => category.id === this.article.category)
-    },
-    categoryArticles () {
-      return this.shuffleArray(this.articles.data.filter((article) => article.category === this.article.category && article.id !== this.article.id))
     },
     twitterURL () {
       if (this.article?.topics === undefined) return ''
