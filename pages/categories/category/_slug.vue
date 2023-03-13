@@ -46,13 +46,14 @@ export default {
   },
   async fetch () {
       const categories = await this.$axios.get(`https://cms-how-works.com/items/categories?fields=*`)
-      this.category = categories.data.data.filter(category => category.slug === this.$route.params.slug)[0]
-      this.categories = categories.data.data.filter(category => category.id !== this.category.id)
-
-      const articles = await this.$axios.get(
-        `https://cms-how-works.com/items/articles?fields=*,topics.topics_id.*&filter[category][_in]=${this.category.id}`
-      )
-      this.articles = articles.data.data
+        .then(() => {
+          this.category = categories.data.data.filter(category => category.slug === this.$route.params.slug)[0]
+          this.categories = categories.data.data.filter(category => category.id !== this.category.id)
+          const articles = this.$axios.get(
+            `https://cms-how-works.com/items/articles?fields=*,topics.topics_id.*&filter[category][_in]=${this.category.id}`
+          )
+          this.articles = articles.data.data
+      })
   },
   beforeMount() {
     this.articles = this.shuffleArray(this.articles)

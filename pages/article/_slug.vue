@@ -141,9 +141,7 @@ export default {
         }
       }
     })
-    this.article = response.data[0]
-    await this.$store.dispatch('getArticles')
-    await this.$store.dispatch('getCategories')
+    this.article = await response.data[0]
   },
   data () {
     return {
@@ -152,8 +150,11 @@ export default {
       article: {}
     }
   },
-  mounted () {
+  async mounted () {
     this.shareAvailable = navigator.share !== undefined
+
+    await this.$store.dispatch('getArticles')
+    await this.$store.dispatch('getCategories')
   },
   computed: {
     ...mapState({

@@ -22,7 +22,6 @@ export default {
     const response = await this.$directus.items("terms").readByQuery({
       fields: ["*"]
     })
-    console.log(response)
     this.text = response.data.text
   },
   data () {
