@@ -45,19 +45,15 @@ export default {
     }
   },
   async fetch () {
-      await this.$axios.get(`https://cms-how-works.com/items/categories?fields=*`)
-        .then(async (res) => {
-          this.category = res.data.data.filter(category => category.slug === this.$route.params.slug)[0]
-          this.categories = res.data.data.filter(category => category.id !== this.category.id)
-          const articles = await this.$axios.get(
-            `https://cms-how-works.com/items/articles?fields=*,topics.topics_id.*&filter[category][_in]=${this.category.id}`
-          )
-          this.articles = await articles.data.data
-      })
+      const categories = await this.$axios.get(`https://cms-how-works.com/items/categories?fields=*`)
+      this.category = await categories.data.data.filter(category => category.slug === this.$route.params.slug)[0]
+      this.categories = this.shuffleArray(await categories.data.data.filter(category => category.id !== this.category.id))
   },
-  beforeMount() {
-    this.articles = this.shuffleArray(this.articles)
-    this.categories = this.shuffleArray(this.categories)
+  async mounted () {
+    const articles = await this.$axios.get(
+      `https://cms-how-works.com/items/articles?fields=*,topics.topics_id.*&filter[category][_in]=${this.category.id}`
+    )
+    this.articles = this.shuffleArray(await articles.data.data)
   },
   methods: {
     open (id) {
