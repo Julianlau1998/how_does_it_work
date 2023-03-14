@@ -133,16 +133,15 @@ export default {
     }
   },
   async fetch () {
-    const article = await this.$directus.items("articles").readByQuery({
+    this.$directus.items("articles").readByQuery({
       fields: ["*", "topics.topics_id.*"],
       filter: {
         'slug': {
           '_eq': this.$route.params.slug
         }
       }
-    })
-      this.article = await article.data[0]
-
+    }).then ((response) => {
+      this.article = response.data[0]
       this.$directus.items("articles").readByQuery({
         fields: ["id","slug","title","description","image","category","topics", "topics.topics_id.*"],
         filter: {
@@ -153,6 +152,7 @@ export default {
       }).then((similar) => {
         this.similar = this.shuffleArray(similar.data.filter(article => article.id !== this.article.id))
       })
+    })
   },
   data () {
     return {
