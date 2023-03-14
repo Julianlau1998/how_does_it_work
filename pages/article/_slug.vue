@@ -133,24 +133,25 @@ export default {
     }
   },
   async fetch () {
-    await this.$directus.items("articles").readByQuery({
+    this.$directus.items("articles").readByQuery({
       fields: ["*", "topics.topics_id.*"],
       filter: {
         'slug': {
           '_eq': this.$route.params.slug
         }
       }
-    }).then (async (response) => {
+    }).then ((response) => {
         this.article = response.data[0]
-        const similar = await this.$directus.items("articles").readByQuery({
+        this.$directus.items("articles").readByQuery({
           fields: ["id","slug","title","description","image","category","topics", "topics.topics_id.*"],
           filter: {
             'category': {
               '_eq': this.article.category
             }
           }
+        }).then((similar) => {
+          this.similar = this.shuffleArray(similar.data.filter(article => article.id !== this.article.id))
         })
-        this.similar = this.shuffleArray(similar.data.filter(article => article.id !== this.article.id))
       })
   },
   data () {
