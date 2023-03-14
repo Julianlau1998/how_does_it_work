@@ -133,26 +133,15 @@ export default {
     }
   },
   async fetch () {
-    this.$directus.items("articles").readByQuery({
+    const article = await this.$directus.items("articles").readByQuery({
       fields: ["*", "topics.topics_id.*"],
       filter: {
         'slug': {
           '_eq': this.$route.params.slug
         }
       }
-    }).then ((response) => {
-      this.article = response.data[0]
-      this.$directus.items("articles").readByQuery({
-        fields: ["id","slug","title","description","image","category","topics", "topics.topics_id.*"],
-        filter: {
-          'category': {
-            '_eq': this.article.category
-          }
-        }
-      }).then((similar) => {
-        this.similar = this.shuffleArray(similar.data.filter(article => article.id !== this.article.id))
-      })
     })
+    this.article = await article.data[0]
   },
   data () {
     return {
@@ -165,6 +154,17 @@ export default {
   },
   async mounted () {
     this.shareAvailable = navigator.share !== undefined
+
+    this.$directus.items("articles").readByQuery({
+      fields: ["id","slug","title","description","image","category","topics", "topics.topics_id.*"],
+      filter: {
+        'category': {
+          '_eq': this.article.category
+        }
+      }
+    }).then((similar) => {
+      this.similar = this.shuffleArray(similar.data.filter(article => article.id !== this.article.id))
+    })
 
     await this.$store.dispatch('getArticles')
     await this.$store.dispatch('getCategories')

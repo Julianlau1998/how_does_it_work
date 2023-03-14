@@ -49,6 +49,12 @@ export default {
     ['nuxt-matomo', { matomoUrl: 'https://howworks.matomo.cloud/', siteId: 1 }]
   ],
 
+  optimization: {
+    splitChunks: {
+      maxSize: 300000
+    }
+  },
+
   sitemap: {
     hostname: 'https://how-works.com',
   },
