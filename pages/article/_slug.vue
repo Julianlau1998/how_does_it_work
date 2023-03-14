@@ -52,18 +52,18 @@
         </v-col>
       </v-row>
       <br>
-        <h2 v-if="categoryArticles.length" class="mt-16 mb-negative-5-5 is-h-1">
+        <h2 v-if="similar.length" class="mt-16 mb-negative-5-5 is-h-1">
           Similar Articles
         </h2>
         <Articles
           class="mt-8"
           :categories="category"
-          :articles="categoryArticles"
+          :articles="similar"
           :max-amount="3"
           :hide-title="true"
           @openCategory="openCategory(article.category)"
         />
-        <h2 v-if="categoryArticles.length" class="mt-8 mb-negative-5 is-h-1">
+        <h2 class="mt-8 mb-negative-5 is-h-1">
           More Articles
         </h2>
         <Articles
@@ -150,7 +150,7 @@ export default {
             }
           }
         })
-        this.similar = this.shuffleArray(await similar)
+        this.similar = this.shuffleArray(similar.data)
       })
   },
   data () {
