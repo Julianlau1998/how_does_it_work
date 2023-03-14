@@ -150,7 +150,7 @@ export default {
             }
           }
         })
-        this.similar = this.shuffleArray(similar.data)
+        this.similar = this.shuffleArray(similar.data.filter(article => article.id !== this.article.id))
       })
   },
   data () {
