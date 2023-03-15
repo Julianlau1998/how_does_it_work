@@ -59,7 +59,7 @@
           v-if="category && similar"
           class="mt-8"
           :categories="category"
-          :articles="similar"
+          :articles="shuffleArray(similar)"
           :max-amount="3"
           :hide-title="true"
           @openCategory="openCategory(article.category)"
@@ -70,7 +70,7 @@
           <Articles
             v-if="categories.data && articles.data"
             class="mt-8"
-            :categories="categories.data"
+            :categories="shuffleArray(categories.data)"
             :articles="shuffleArray(articles.data)"
             :max-amount="3"
             @openCategory="openCategory"
@@ -154,7 +154,6 @@ export default {
         }
       }).then((similar) => {
         this.similar = similar.data.filter(article => article.id !== this.article.id)
-        this.similar = this.shuffleArray(this.similar)
       })
 
       await this.$directus.items("articles").readByQuery({
