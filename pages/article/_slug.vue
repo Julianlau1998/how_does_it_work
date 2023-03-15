@@ -64,17 +64,17 @@
           :hide-title="true"
           @openCategory="openCategory(article.category)"
         />
-        <h2 class="mt-8 mb-negative-5 is-h-1">
-          More Articles
-        </h2>
-        <Articles
-          v-if="categories.data && articles.data"
-          class="mt-8"
-          :categories="categories.data"
-          :articles="articles.data"
-          :max-amount="3"
-          @openCategory="openCategory"
-        />
+          <h2 class="mt-8 mb-negative-5 is-h-1">
+            More Articles
+          </h2>
+          <Articles
+            v-if="categories.data && articles.data"
+            class="mt-8"
+            :categories="categories.data"
+            :articles="shuffleArray(articles.data)"
+            :max-amount="3"
+            @openCategory="openCategory"
+          />
       <div id="lateral" v-if="shareAvailable">
         <v-fab-transition>
           <v-btn
@@ -135,25 +135,43 @@ export default {
     }
   },
   async fetch () {
-    const article = await this.$directus.items("articles").readByQuery({
+    await this.$directus.items("articles").readByQuery({
       fields: ["*", "topics.topics_id.*"],
       filter: {
         'slug': {
           '_eq': this.$route.params.slug
         }
       }
-    })
-    this.article = await article.data[0]
+    }).then(async (article) => {
+      this.article = article.data[0]
 
-    this.$directus.items("articles").readByQuery({
-      fields: ["id","slug","title","description","image","category","topics", "topics.topics_id.*"],
-      filter: {
-        'category': {
-          '_eq': this.article.category
+      await this.$directus.items("articles").readByQuery({
+        fields: ["id","slug","title","description","image","category","topics", "topics.topics_id.*"],
+        filter: {
+          'category': {
+            '_eq': this.article.category
+          }
         }
-      }
-    }).then((response) => {
-      this.similar = this.shuffleArray(response.data.filter(article => article.id !== this.article.id))
+      }).then((similar) => {
+        this.similar = similar.data.filter(article => article.id !== this.article.id)
+        this.similar = this.shuffleArray(this.similar)
+      })
+
+      await this.$directus.items("articles").readByQuery({
+        fields: ["id", "slug", "title", "description", "image", "category", "topics", "topics.topics_id.*"],
+        filter: {
+          'category': {
+            '_neq': this.article.category
+          }
+        }
+      }).then(async (articles) => {
+        this.articles = articles
+
+        await this.$directus.items("categories").readByQuery({fields: ["*"]})
+          .then((categories) => {
+            this.categories = categories
+          })
+      })
     })
   },
   data () {
@@ -169,7 +187,8 @@ export default {
   },
   computed: {
     category () {
-      return this.categories?.data?.filter((category) => category.id === this.article.category)
+      if (!this.categories.data) return []
+      return this.categories.data.filter((category) => category.id === this.article.category)
     },
     twitterURL () {
       if (this.article?.topics === undefined) return ''
@@ -186,11 +205,6 @@ export default {
   },
   async mounted () {
     this.shareAvailable = navigator.share !== undefined
-
-    const articles = await axios.get(`https://cms-how-works.com/items/articles?fields=id,slug,title,description,image,category,topics.topics_id.*`)
-    this.articles = articles.data
-    const categories = await axios.get(`https://cms-how-works.com/items/categories?fields=*`)
-    this.categories = categories.data
   },
   methods: {
     openCategory (id) {
