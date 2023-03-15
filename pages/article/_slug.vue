@@ -44,6 +44,9 @@
             justify="center"
             :src="`https://cms-how-works.com/assets/${article.image}`"
           ></v-img>
+          <div v-else>
+            Loading
+          </div>
         </v-col>
       </v-row>
       <v-row>
