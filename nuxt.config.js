@@ -33,7 +33,11 @@ export default {
   plugins: [
   ],
 
-  components: true,
+  components: {
+    dirs: [
+      '~/components'
+    ]
+  },
 
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
@@ -67,7 +71,7 @@ export default {
     },
   },
   axios: {
-    baseURL: '/',
+    baseURL: '/'
   },
 
   pwa: {

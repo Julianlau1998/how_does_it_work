@@ -56,6 +56,7 @@
           Similar Articles
         </h2>
         <Articles
+          v-if="category && similar"
           class="mt-8"
           :categories="category"
           :articles="similar"
@@ -67,8 +68,9 @@
           More Articles
         </h2>
         <Articles
+          v-if="categories.data && articles.data"
           class="mt-8"
-          :categories="categories.data.filter((category) => category.id !== article.category)"
+          :categories="categories.data"
           :articles="articles.data"
           :max-amount="3"
           @openCategory="openCategory"
@@ -98,7 +100,7 @@
 <script>
 import SocialShare from "~/components/base/SocialShare"
 import AdBanner from "~/components/ads/AdBanner"
-import { mapState } from 'vuex'
+import axios from "axios";
 
 export default {
   name: "articleComponent",
@@ -142,18 +144,6 @@ export default {
       }
     })
     this.article = await article.data[0]
-  },
-  data () {
-    return {
-      rating: 0,
-      shareAvailable: false,
-      article: {},
-      similar: [],
-      categoryArticles: []
-    }
-  },
-  async mounted () {
-    this.shareAvailable = navigator.share !== undefined
 
     this.$directus.items("articles").readByQuery({
       fields: ["id","slug","title","description","image","category","topics", "topics.topics_id.*"],
@@ -162,18 +152,22 @@ export default {
           '_eq': this.article.category
         }
       }
-    }).then((similar) => {
-      this.similar = this.shuffleArray(similar.data.filter(article => article.id !== this.article.id))
+    }).then((response) => {
+      this.similar = this.shuffleArray(response.data.filter(article => article.id !== this.article.id))
     })
-
-    await this.$store.dispatch('getArticles')
-    await this.$store.dispatch('getCategories')
+  },
+  data () {
+    return {
+      rating: 0,
+      shareAvailable: false,
+      article: {},
+      similar: [],
+      categoryArticles: [],
+      articles: {},
+      categories: {}
+    }
   },
   computed: {
-    ...mapState({
-      articles: (state) => state.articles,
-      categories: (state) => state.categories,
-    }),
     category () {
       return this.categories?.data?.filter((category) => category.id === this.article.category)
     },
@@ -189,6 +183,14 @@ export default {
       if (this.article?.topics === undefined) return ''
       return `mailto:?to=&body=https://how-works.com/article/${this.article.slug}%0D%0A%0D%0A${this.article.article.replace(/<[^>]*>/g, '')}&subject=Look what I've found: ${this.article.title}`
     }
+  },
+  async mounted () {
+    this.shareAvailable = navigator.share !== undefined
+
+    const articles = await axios.get(`https://cms-how-works.com/items/articles?fields=id,slug,title,description,image,category,topics.topics_id.*`)
+    this.articles = articles.data
+    const categories = await axios.get(`https://cms-how-works.com/items/categories?fields=*`)
+    this.categories = categories.data
   },
   methods: {
     openCategory (id) {
