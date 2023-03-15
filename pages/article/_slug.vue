@@ -206,7 +206,13 @@ export default {
       return `mailto:?to=&body=https://how-works.com/article/${this.article.slug}%0D%0A%0D%0A${this.article.article.replace(/<[^>]*>/g, '')}&subject=Look what I've found: ${this.article.title}`
     }
   },
-  async mounted () {
+  created() {
+    const self = this
+    self.$nextTick(function() {
+      self.loaded = true
+    })
+  },
+  mounted () {
     this.shareAvailable = navigator.share !== undefined
   },
   methods: {
