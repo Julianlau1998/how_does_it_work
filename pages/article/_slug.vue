@@ -1,60 +1,61 @@
 <template>
     <v-container justify fill-height fluid class="mb-max">
-      <v-row class="mt-1">
-        <v-col cols="12" sm="6">
-          <h1>
-            {{ article.title ? `${article.title}?` : 'Loading...' }}
-          </h1>
-          <p class="mt-2">
-            <b>
-              {{ article.description ? article.description : 'Loading...' }}
-            </b>
-          </p>
-          <v-chip-group
-            active-class="blue lighten-2 white--text"
-            column
-          >
-            <v-chip
-              v-for="(topic, id) in article.topics"
-              :key="id"
-              active-class="no-active"
+      <div v-if="article.title">
+        <v-row class="mt-1">
+          <v-col cols="12" sm="6">
+            <h1>
+              {{ article.title ? `${article.title}?` : 'Loading...' }}
+            </h1>
+            <p class="mt-2">
+              <b>
+                {{ article.description ? article.description : 'Loading...' }}
+              </b>
+            </p>
+            <v-chip-group
+              active-class="blue lighten-2 white--text"
+              column
             >
-              {{ topic.topics_id.title }}
-            </v-chip>
-          </v-chip-group>
-<!--          <v-rating
-            v-model="rating"
-            class="mt-2"
-            background-color="orange lighten-3"
-            color="orange"
-            large
-          ></v-rating>-->
-        <SocialShare
-          :facebook-url="facebookURL"
-          :twitter-url="twitterURL"
-          :mail-url="mailURL"
-        />
-        </v-col>
-        <v-col>
-          <v-img
-            v-if="article.image"
-            class="is-rounded-2 ml-md-8 ml-lg-8 ml-xl-8"
-            width="380"
-            align="center"
-            justify="center"
-            :src="`https://cms-how-works.com/assets/${article.image}`"
-          ></v-img>
-          <div v-else>
-            Loading
-          </div>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" class="mt-8">
-          <div v-html="article.article" />
-        </v-col>
-      </v-row>
-      <br>
+              <v-chip
+                v-for="(topic, id) in article.topics"
+                :key="id"
+                active-class="no-active"
+              >
+                {{ topic.topics_id.title }}
+              </v-chip>
+            </v-chip-group>
+            <!--          <v-rating
+                        v-model="rating"
+                        class="mt-2"
+                        background-color="orange lighten-3"
+                        color="orange"
+                        large
+                      ></v-rating>-->
+            <SocialShare
+              :facebook-url="facebookURL"
+              :twitter-url="twitterURL"
+              :mail-url="mailURL"
+            />
+          </v-col>
+          <v-col>
+            <v-img
+              v-if="article.image"
+              class="is-rounded-2 ml-md-8 ml-lg-8 ml-xl-8"
+              width="380"
+              align="center"
+              justify="center"
+              :src="`https://cms-how-works.com/assets/${article.image}`"
+            ></v-img>
+            <div v-else>
+              Loading
+            </div>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="12" class="mt-8">
+            <div v-html="article.article" />
+          </v-col>
+        </v-row>
+        <br>
         <h2 v-if="similar.length" class="mt-16 mb-negative-5-5 is-h-1">
           Similar Articles
         </h2>
@@ -67,35 +68,36 @@
           :hide-title="true"
           @openCategory="openCategory(article.category)"
         />
-          <h2 class="mt-8 mb-negative-5 is-h-1">
-            More Articles
-          </h2>
-          <Articles
-            v-if="categories.data && articles.data"
-            class="mt-8"
-            :categories="shuffleArray(categories.data)"
-            :articles="shuffleArray(articles.data)"
-            :max-amount="3"
-            @openCategory="openCategory"
-          />
-      <div id="lateral" v-if="shareAvailable">
-        <v-fab-transition>
-          <v-btn
-            @click="share"
-            color="blue lighten-2"
-            fab
-            large
-            dark
-            bottom
-            left
-            class="v-btn--example"
-            aria-label="share"
-          >
-            <v-icon>
-              mdi-share-variant
-            </v-icon>
-          </v-btn>
-        </v-fab-transition>
+        <h2 class="mt-8 mb-negative-5 is-h-1">
+          More Articles
+        </h2>
+        <Articles
+          v-if="categories.data && articles.data"
+          class="mt-8"
+          :categories="shuffleArray(categories.data)"
+          :articles="shuffleArray(articles.data)"
+          :max-amount="3"
+          @openCategory="openCategory"
+        />
+        <div id="lateral" v-if="shareAvailable">
+          <v-fab-transition>
+            <v-btn
+              @click="share"
+              color="blue lighten-2"
+              fab
+              large
+              dark
+              bottom
+              left
+              class="v-btn--example"
+              aria-label="share"
+            >
+              <v-icon>
+                mdi-share-variant
+              </v-icon>
+            </v-btn>
+          </v-fab-transition>
+        </div>
       </div>
     </v-container>
 </template>
@@ -103,7 +105,6 @@
 <script>
 import SocialShare from "~/components/base/SocialShare"
 import AdBanner from "~/components/ads/AdBanner"
-import axios from "axios";
 
 export default {
   name: "articleComponent",
