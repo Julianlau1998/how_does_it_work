@@ -33,7 +33,7 @@ export default {
   plugins: [
   ],
 
-  components: false,
+  components: true,
 
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
