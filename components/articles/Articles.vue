@@ -3,8 +3,8 @@
     <div
       v-for="(category, index) in categories"
     >
-      <span v-if="articles.filter(article => article.category === category.id).length">
-        <span v-if="!hideTitle">
+      <span v-show="articles.filter(article => article.category === category.id).length">
+        <span v-show="!hideTitle">
           <h2
             v-if="categories.length > 1"
             @click="$emit('openCategory', category.slug)"
@@ -25,7 +25,7 @@
           </p>
         </span>
         <v-row
-          v-if="articles && articles.length"
+          v-show="articles && articles.length"
           class="mb-6"
           no-gutters
         >

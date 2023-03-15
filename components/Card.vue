@@ -38,7 +38,7 @@
     </v-card-text>
 
     <v-divider class="mx-4" :class="!topics.length ? 'mt-negative-2' : ''"></v-divider>
-    <v-card-text v-if="topics.length">
+    <v-card-text v-show="topics.length">
       <v-chip-group
         active-class="deep-purple accent-4 white--text"
         column
