@@ -59,7 +59,7 @@
           v-show="category && similar"
           class="mt-8"
           :categories="category"
-          :articles="similar"
+          :articles="similar ? shuffleArray(similar) : []"
           :max-amount="3"
           :hide-title="true"
           @openCategory="openCategory(article.category)"
@@ -70,8 +70,8 @@
           <Articles
             v-show="categories.data && articles.data"
             class="mt-8"
-            :categories="categories.data"
-            :articles="articles.data"
+            :categories="categories.data ? shuffleArray(categories.data) : []"
+            :articles="articles.data ? shuffleArray(articles.data) : []"
             :max-amount="3"
             @openCategory="openCategory"
           />
