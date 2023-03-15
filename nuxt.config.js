@@ -33,7 +33,7 @@ export default {
   plugins: [
   ],
 
-  components: true,
+  components: false,
 
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
@@ -47,14 +47,7 @@ export default {
     '~/modules/directus',
     '@nuxtjs/sitemap',
     ['nuxt-matomo', { matomoUrl: 'https://howworks.matomo.cloud/', siteId: 1 }],
-    'nuxt-delay-hydration',
   ],
-
-  delayHydration: {
-    // enables nuxt-delay-hydration in dev mode for testing
-    debug: process.env.NODE_ENV === 'development',
-    type: 'mount'
-  },
 
   optimization: {
     splitChunks: {
