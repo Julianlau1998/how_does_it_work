@@ -39,7 +39,7 @@ export default {
     }
   },
   async fetch () {
-      const categories = await this.$axios.get(`https://cms-how-works.com/items/categories?fields=*`)
+      const categories = await this.$axios.get(`https://cms.how-works.com/items/categories?fields=*`)
       this.categories = categories.data.data
   },
   beforeMount() {

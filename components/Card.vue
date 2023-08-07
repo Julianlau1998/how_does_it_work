@@ -16,7 +16,7 @@
        @click="$emit('open')"
        class="is-cursor-pointer"
        height="250"
-       :src="`https://cms-how-works.com/assets/${img}`"
+       :src="`https://cms.how-works.com/assets/${img}`"
      ></v-img>
     <div v-else class="is-card-loader">
       <v-progress-circular

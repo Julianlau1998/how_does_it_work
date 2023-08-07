@@ -42,7 +42,7 @@
             width="380"
             align="center"
             justify="center"
-            :src="`https://cms-how-works.com/assets/${article.image}`"
+            :src="`https://cms.how-works.com/assets/${article.image}`"
           ></v-img>
         </v-col>
       </v-row>

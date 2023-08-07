@@ -83,14 +83,14 @@ export default {
   },
   async fetch () {
     const articles = await this.$axios.get(
-      `https://cms-how-works.com/items/articles?fields=*,topics.topics_id.*`
+      `https://cms.how-works.com/items/articles?fields=*,topics.topics_id.*`
     )
     this.articles = articles.data.data
 
-    const categories = await this.$axios.get(`https://cms-how-works.com/items/categories?fields=*`)
+    const categories = await this.$axios.get(`https://cms.how-works.com/items/categories?fields=*`)
     this.categories = categories.data.data
 
-    const topics = await axios.get(`https://cms-how-works.com/items/topics`)
+    const topics = await axios.get(`https://cms.how-works.com/items/topics`)
     this.topics = topics.data.data
   },
   beforeMount() {
@@ -100,7 +100,7 @@ export default {
   async mounted() {
     this.filter = []
     this.rand = Math.random(10000)
-    const topics = await axios.get(`https://cms-how-works.com/items/topics`)
+    const topics = await axios.get(`https://cms.how-works.com/items/topics`)
     this.topics = topics.data.data
   },
   methods: {

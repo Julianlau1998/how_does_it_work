@@ -4,7 +4,7 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const host = 'https://cms-how-works.com'
+const host = 'https://cms.how-works.com'
 
 export default () => new Vuex.Store({
   namespaced: true,

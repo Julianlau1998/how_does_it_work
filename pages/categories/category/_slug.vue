@@ -45,13 +45,13 @@ export default {
     }
   },
   async fetch () {
-    await this.$axios.get(`https://cms-how-works.com/items/categories?fields=*`)
+    await this.$axios.get(`https://cms.how-works.com/items/categories?fields=*`)
       .then(async (res) => {
         this.category = res.data.data.filter(category => category.slug === this.$route.params.slug)[0]
         this.categories = this.shuffleArray(res.data.data.filter(category => category.id !== this.category.id))
 
         await this.$axios.get(
-          `https://cms-how-works.com/items/articles?fields=id,slug,title,description,image,category,topics.topics_id.*&filter[category][_in]=${this.category.id}`
+          `https://cms.how-works.com/items/articles?fields=id,slug,title,description,image,category,topics.topics_id.*&filter[category][_in]=${this.category.id}`
         ).then((articles) => {
           this.articles = this.shuffleArray(articles.data.data)
         })
